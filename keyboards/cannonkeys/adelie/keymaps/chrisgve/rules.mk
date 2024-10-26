@@ -1,6 +1,6 @@
 APPLE_FN_ENABLE = yes
 
-SRC += chrisgve.c
+# SRC += chrisgve.c
 
 NKRO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
