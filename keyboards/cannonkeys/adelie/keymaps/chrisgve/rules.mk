@@ -1,0 +1,9 @@
+APPLE_FN_ENABLE = yes
+
+SRC += chrisgve.c
+
+NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+
+SHIFT_ENABLE = yes

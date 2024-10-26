@@ -1,4 +1,36 @@
 {
-    "userspace_version": "1.0",
-    "build_targets": []
+    "userspace_version": "1.1",
+    "build_targets": [
+        ["kbdfans/baguette66/rgb", "chrisgve"],
+        ["bemeier/bmek/rev3", "chrisgve"],
+        ["cannonkeys/adelie", "chrisgve"],
+        ["cannonkeys/instant60", "chrisgve"],
+        ["cannonkeys/savage65", "chrisgve"],
+        ["dz60", "chrisgve"],
+        ["dztech/dz60rgb_wkl/v2_1", "chrisgve"],
+        ["emery65", "chrisgve"],
+        ["hineybush/h60", "chrisgve"],
+        ["kbdfans/kbd67/rev2", "chrisgve"],
+        ["kbdfans/kbdpad/mk2", "chrisgve"],
+        ["kbdfans/odin/soldered", "chrisgve"],
+        ["kbdfans/d60b", "chrisgve"],
+        ["keebsforall/freebirdtkl", "chrisgve"],
+        ["kopibeng/mnk65", "chrisgve"],
+        ["kopibeng/mnk65_stm32", "chrisgve"],
+        ["mechlovin/adelais/standard_led/arm/rev4/apm32f103", "chrisgve"],
+        ["mechlovin/adelais/standard_led/arm/rev4/apm32f103", "chrisgve_hhkb"],
+        ["mechlovin/adelais/standard_led/arm/rev4/stm32f303", "chrisgve_hhkb"],
+        ["mode/m65s", "chrisgve"],
+        ["preonic/rev3", "chrisgve"],
+        ["preonic/rev3", "chrisgve_2x2u"],
+        ["preonic/rev3", "chrisgve_60"],
+        ["preonic/rev3", "chrisgve_exp"],
+        ["preonic/rev3_drop", "chrisgve"],
+        ["preonic/rev3_drop", "chrisgve_2x2u"],
+        ["preonic/rev3_drop", "chrisgve_60"],
+        ["preonic/rev3_drop", "chrisgve_exp"],
+        ["quarkeys/z60/solder", "chrisgve"],
+        ["wind_x", "chrisgve"],
+        ["zlant_xl", "chrisgve"]
+    ]
 }
