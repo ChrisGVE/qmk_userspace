@@ -3,7 +3,11 @@ SHIFT_ENABLE = yes
 LTO_ENABLE = yes
 # SRC += chrisgve.c
 
-INTROSPECTION_KEYMAP_C = chrisgve.c
+ifdef TAP_DANCE_ENABLE
+	INTROSPECTION_KEYMAP_C = chrisgve.c
+else
+	SRC += chrisgve.c
+endif
 
 ifdef USER_NAME
 	ifeq ($(strip $(USER_NAME)), chrisgve)
