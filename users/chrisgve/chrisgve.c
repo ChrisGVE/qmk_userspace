@@ -1,5 +1,7 @@
 #include "chrisgve.h"
 
+#ifndef DISABLE_USER_CODE
+
 /*****************************************
  *
  *   Placeholder functions implementable in the respective keymaps
@@ -22,11 +24,11 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
     return state;
 }
 
-#ifdef RGB_MATRIX_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
     return true;
 }
-#endif
+#    endif
 
 /*****************************************
  *
@@ -35,13 +37,13 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
  *****************************************/
 
 // Debug
-#ifdef CONSOLE_ENABLE
-#    include "print.h"
-#endif
+#    ifdef CONSOLE_ENABLE
+#        include "print.h"
+#    endif
 
 // EEPROM user configuration
 
-#ifndef DISABLE_POST_INIT
+#    ifndef DISABLE_POST_INIT
 typedef union {
     uint8_t raw; // 8 bit configuration
     struct {
@@ -50,7 +52,7 @@ typedef union {
 } user_config_t;
 
 user_config_t user_config;
-#endif
+#    endif
 
 // Global variables
 enum generic_layer_t {
@@ -66,11 +68,11 @@ enum generic_layer_t {
 bool    caps_lock = false;
 bool    def_layer = true;
 uint8_t cur_layer = _DEF_L;
-#ifdef MOUSEKEY_ENABLE
+#    ifdef MOUSEKEY_ENABLE
 bool mouse_layer = false;
-#endif
+#    endif
 
-#ifdef MODIFIERS_ENABLE
+#    ifdef MODIFIERS_ENABLE
 bool lshift = false;
 bool rshift = false;
 bool lctrl  = false;
@@ -79,11 +81,11 @@ bool lalt   = false;
 bool ralt   = false;
 bool lgui   = false;
 bool rgui   = false;
-#endif
+#    endif
 
 // Tap dance configuration
 
-#ifdef TAP_DANCE_ENABLE
+#    ifdef TAP_DANCE_ENABLE
 
 // Define a type containing the tapdance states to be tested
 typedef enum { TD_NONE, TD_UNKNOWN, TD_SINGLE_TAP, TD_SINGLE_HOLD, TD_DOUBLE_SINGLE_TAP } td_state_t;
@@ -145,42 +147,42 @@ void cps_ctl_reset(tap_dance_state_t *state, void *user_data) {
 // Tap Dance definition
 tap_dance_action_t tap_dance_actions[] = {
 // Tap once or Shift, twice for mouse layer
-#    ifdef MOUSEKEY_ENABLE
+#        ifdef MOUSEKEY_ENABLE
     [TD_LSHIFT_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _EX_MOUSE),
-#    endif
+#        endif
     [TD_ADJ_NUM]   = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJUST, _NUM),
     [TD_CTRL_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cps_ctl_finished, cps_ctl_reset),
 };
 
-#endif
+#    endif
 
 // RGB Handling
 
 void disable_rgb(void) {
-#ifdef RBGLIGHT_ENABLE
+#    ifdef RBGLIGHT_ENABLE
     rgblight_disable();
-#endif
+#    endif
 }
 
 void reset_rgb(void) {
-#ifdef RGB_MATRIX_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
     rgb_matrix_disable_noeeprom();
-#endif
-#ifdef RGBLIGHT_ENABLE
+#    endif
+#    ifdef RGBLIGHT_ENABLE
     rgblight_disable();
-#endif
+#    endif
 }
 
 void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
-#ifdef RGB_MATRIX_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable_noeeprom();
     rgb_matrix_set_color_all(red, green, blue);
-#endif
-#ifdef RGBLIGHT_ENABLE
+#    endif
+#    ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb(red, green, blue);
-#endif
+#    endif
 }
 
 void set_nav_1_rgb(void) {
@@ -207,7 +209,7 @@ void set_gmg_rgb(void) {
     set_rgb(RGB_GMG_R, RGB_GMG_G, RGB_GMG_B);
 }
 
-#ifdef RGB_MATRIX_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {
     switch (cur_layer) {
         case _DEF_L:
@@ -240,9 +242,9 @@ bool rgb_matrix_indicators_user(void) {
     rgb_matrix_indicators_keymap();
     return true;
 }
-#endif
+#    endif
 
-#ifdef TAPPING_TERM_PER_KEY
+#    ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case S_SHIFT:
@@ -260,29 +262,29 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case M_F_NAV:
         case L_F_NAV:
         case W_F_NAV:
-#    ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#        ifdef DYNAMIC_TAPPING_TERM_ENABLE
             return g_tapping_term;
-#    else
+#        else
             return TAPPING_TERM;
-#    endif
+#        endif
         case CPS_CTL:
         case TAB_CTL:
-#    ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#        ifdef DYNAMIC_TAPPING_TERM_ENABLE
             return g_tapping_term * 0.75;
-#    else
+#        else
             return TAPPING_TERM * 0.75;
-#    endif
+#        endif
         default:
-#    ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#        ifdef DYNAMIC_TAPPING_TERM_ENABLE
             return g_tapping_term / 2;
-#    else
+#        else
             return TAPPING_TERM / 2;
-#    endif
+#        endif
     }
 }
-#endif
+#    endif
 
-#ifdef PERMISSIVE_HOLD_PER_KEY
+#    ifdef PERMISSIVE_HOLD_PER_KEY
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // case TAB_CTL:
@@ -307,9 +309,9 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
-#endif
+#    endif
 
-#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TAB_CTL:
@@ -324,9 +326,9 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
-#endif
+#    endif
 
-#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#    ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Do not force the mod-tap key press to be handled as a modifier
@@ -338,9 +340,9 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
-#endif
+#    endif
 
-#ifdef TAPPING_FORCE_HOLD_PER_KEY
+#    ifdef TAPPING_FORCE_HOLD_PER_KEY
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         /* case A_MOUSE:
@@ -355,16 +357,16 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
-#endif
+#    endif
 
-#ifdef RETRO_TAPPING_PER_KEY
+#    ifdef RETRO_TAPPING_PER_KEY
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         default:
             return false;
     }
 }
-#endif
+#    endif
 
 // Handling of layer color
 layer_state_t default_layer_state_set_user(layer_state_t state) {
@@ -457,24 +459,24 @@ bool led_update_user(led_t usb_led) {
     return false;
 }
 
-#ifndef DISABLE_POST_INIT
+#    ifndef DISABLE_POST_INIT
 // Keyboard post init
 void keyboard_post_init_user(void) {
     // Read the user config from EEPROM
     /* user_config.raw = eeconfig_read_user(); */
 
     // Init RGB
-#    ifdef RGBLIGHT_DISABLE
+#        ifdef RGBLIGHT_DISABLE
     disable_rgb();
     reset_rgb();
-#    else
+#        else
     reset_rgb();
-#    endif
+#        endif
 
     // Call specific board initialization
     keyboard_post_init_keymap();
 }
-#endif
+#    endif
 
 // Key handling
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -498,7 +500,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-#ifdef MODIFIERS_ENABLE
+#    ifdef MODIFIERS_ENABLE
         /* Monitor shift state */
         case SFT_MSE:
         case KC_LSFT:
@@ -565,10 +567,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CU_BSPC:
             // SHIFT_NO(KC_BSPC, KC_DEL)
             CTRL_NO(KC_BSPC, KC_DEL)
-#endif
-#ifdef MACROS_ENABLED
+#    endif
+#    ifdef MACROS_ENABLED
             /* Standard macros */
-#endif
+#    endif
         default:
             break;
     }
@@ -576,3 +578,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Board specific handling
     return process_record_keymap(keycode, record);
 }
+
+#endif
