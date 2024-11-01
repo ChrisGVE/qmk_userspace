@@ -20,8 +20,8 @@
 // #define FORCE_NKRO
 
 #define BACKLIGHT_CAPS_LOCK
+#define BACKLIGHT_ON_STATE 0
 
 #define DEBOUNCE 5
 
 #define PERMISSIVE_HOLD
-
