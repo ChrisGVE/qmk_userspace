@@ -1,6 +1,4 @@
 #define BACKLIGHT_CAPS_LOCK
-
-// #define TAPPING_TERM 200
+#define BACKLIGHT_ON_STATE 0
 
 #define PERMISSIVE_HOLD
-

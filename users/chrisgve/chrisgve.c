@@ -1,4 +1,5 @@
 #include "chrisgve.h"
+
 /*****************************************
  *
  *   Placeholder functions implementable in the respective keymaps
@@ -40,6 +41,7 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
 
 // EEPROM user configuration
 
+#ifndef DISABLE_POST_INIT
 typedef union {
     uint8_t raw; // 8 bit configuration
     struct {
@@ -48,9 +50,9 @@ typedef union {
 } user_config_t;
 
 user_config_t user_config;
+#endif
 
 // Global variables
-
 enum generic_layer_t {
     _DEF_L,
     _NAV1_L,
@@ -154,20 +156,18 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // RGB Handling
 
-#ifdef RGBLIGHT_ENABLE
 void disable_rgb(void) {
-#    ifdef RBGLIGHT_ENABLE
+#ifdef RBGLIGHT_ENABLE
     rgblight_disable();
-#    endif
-}
 #endif
+}
 
 void reset_rgb(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_disable_noeeprom();
 #endif
 #ifdef RGBLIGHT_ENABLE
-    rgblight_disable_noeeprom();
+    rgblight_disable();
 #endif
 }
 
@@ -456,22 +456,25 @@ bool led_update_user(led_t usb_led) {
     }
     return false;
 }
+
+#ifndef DISABLE_POST_INIT
 // Keyboard post init
 void keyboard_post_init_user(void) {
     // Read the user config from EEPROM
-    user_config.raw = eeconfig_read_user();
+    /* user_config.raw = eeconfig_read_user(); */
 
     // Init RGB
-#ifdef RGBLIGHT_DISABLE
+#    ifdef RGBLIGHT_DISABLE
     disable_rgb();
     reset_rgb();
-#else
+#    else
     reset_rgb();
-#endif
+#    endif
 
     // Call specific board initialization
     keyboard_post_init_keymap();
 }
+#endif
 
 // Key handling
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

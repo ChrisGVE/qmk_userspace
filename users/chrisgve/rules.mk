@@ -1,5 +1,7 @@
 SHIFT_ENABLE = yes
 
+BOOTMAGIC_ENABLE = yes
+
 LTO_ENABLE = yes
 # SRC += chrisgve.c
 
@@ -13,6 +15,10 @@ ifdef USER_NAME
 	ifeq ($(strip $(USER_NAME)), chrisgve)
 		OPT_DEFS += -DCHRISGVE
 	endif
+endif
+
+ifeq ($(strip $(DISABLE_POST_INIT)), yes)
+	OPT_DEFS += -DDISABLE_POST_INIT
 endif
 
 ifeq ($(strip $(REDUCE_RGB)), yes)
