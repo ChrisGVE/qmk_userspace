@@ -1,0 +1,9 @@
+USER_NAME := chrisgve
+
+LTO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+
+SLEEP_LED_ENABLE = no
+SHIFT_ENABLE = yes
+

@@ -456,7 +456,7 @@ bool led_update_user(led_t usb_led) {
             reset_rgb();
         }
     }
-    return false;
+    return true;
 }
 
 #    ifndef DISABLE_POST_INIT
