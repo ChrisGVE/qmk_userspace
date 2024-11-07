@@ -3,6 +3,6 @@
 #define BACKLIGHT_CAPS_LOCK
 #define BACKLIGHT_ON_STATE 0
 
-#define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD
 
-#define DEBOUNCE 5
+// #define DEBOUNCE 5

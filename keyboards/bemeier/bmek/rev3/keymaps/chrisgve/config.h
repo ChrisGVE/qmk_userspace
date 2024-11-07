@@ -13,4 +13,4 @@
 #    define RETRO_TAPPING
 #endif */
 
-#define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD
