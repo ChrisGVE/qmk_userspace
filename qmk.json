@@ -13,7 +13,6 @@
         ["kbdfans/kbd67/rev2", "chrisgve"],
         ["kbdfans/kbdpad/mk2", "chrisgve"],
         ["kbdfans/odin/soldered", "chrisgve"],
-        ["kbdfans/d60b", "chrisgve"],
         ["keebsforall/freebirdtkl", "chrisgve"],
         ["kopibeng/mnk65", "chrisgve"],
         ["kopibeng/mnk65_stm32", "chrisgve"],
@@ -30,7 +29,7 @@
         ["preonic/rev3_drop", "chrisgve_60"],
         ["preonic/rev3_drop", "chrisgve_exp"],
         ["quarkeys/z60/solder", "chrisgve"],
-        ["wind_x", "chrisgve"],
+        ["windstudio/wind_x/r1", "chrisgve"],
         ["zlant_xl", "chrisgve"]
     ]
 }
