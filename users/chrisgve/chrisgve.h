@@ -25,6 +25,10 @@
 #    define IGNORE_MOD_TAP_INTERRUPT
 #endif
 
+#ifdef FACTORY_TEST_ENABLE
+#    include "keychron_common.h"
+#endif
+
 // Custom layers
 enum default_layers {
     _QWERTY_MAC, // QWERTY Mac base layout
@@ -44,13 +48,17 @@ enum default_layers {
     _GAMING,       // Gaming layout
     _ADJUST,       // Adjust layer
     _NUM,          // Numerical layer (for 40% layouts)
-    _EX_MOUSE,     // Mouse key layer (exlusive)
-    _CONFIG,       // Keyboard configuation layer
+    _EX_MOUSE,     // Mouse key layer (exclusive)
+    _CONFIG,       // Keyboard configuration layer
 };
 
 // Custom keys
 enum custom_keycodes {
+#ifdef FACTORY_TEST_ENABLE
+    QWERTY = NEW_SAFE_RANGE,
+#else
     QWERTY = SAFE_RANGE,
+#endif
     DF_M_P,  // Make Mac layer the default persistent layer
     DF_L_P,  // Make Linux layer the default persistent layer
     DF_W_P,  // Make Windows layer the default persistent layer
@@ -58,7 +66,11 @@ enum custom_keycodes {
     MAC_SWT, // Function keys F1 to F12 behave as expected if Apple Fn is sent
     CU_BSPC, // Acts as normal Backspace and Delete when shifted
     CU_SPBC, // Acts as normal Space and Backspace when shifted
+#ifdef FACTORY_TEST_ENABLE
+    NEW_SAFE_RANGE_2
+#else
     NEW_SAFE_RANGE
+#endif
 };
 
 // RGB standard colors
