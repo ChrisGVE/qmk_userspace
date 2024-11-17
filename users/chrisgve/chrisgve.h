@@ -612,6 +612,12 @@ enum custom_keycodes {
 // Mouse
 #ifdef TAP_DANCE_ENABLE
 
+#    define ACTION_TAP_DANCE_TAP_HOLD(tap, hold)                                        \
+        {                                                                               \
+            .fn        = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
+            .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),               \
+        }
+
 #    ifdef MOUSEKEY_ENABLE
 // mouse parameters setup
 #        define MK_KINETIC_SPEED
@@ -619,12 +625,22 @@ enum custom_keycodes {
 #    endif
 
 // Tap Dance declarations
-enum { TD_LSHIFT_MOUSE, TD_CTRL_CAPS, TD_ADJ_NUM };
+enum {
+    TD_LSHIFT_MOUSE,
+    TD_CTRL_CAPS,
+    TD_ADJ_NUM,
+#    ifdef KEYBOARD_SHARED_EP
+    TD_ESC_GLOBE
+#    endif
+};
 
 // Define the keycode for the tap dance
 #    ifdef MOUSEKEY_ENABLE
 #        define SFT_MSE TD(TD_LSHIFT_MOUSE)
 #        define TG_MSE TG(_EX_MOUSE)
+#    endif
+#    ifdef KEYBOARD_SHARED_EP
+#        define ESC_GLB TD(TD_ESC_GLOBE)
 #    endif
 #    define CPS_CTL TD(TD_CTRL_CAPS)
 #    define TG_NUM TG(_NUM)
