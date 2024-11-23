@@ -42,16 +42,21 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
 #    endif
 
 // EEPROM user configuration
-
 #    ifndef DISABLE_POST_INIT
 typedef union {
     uint8_t raw; // 8 bit configuration
     struct {
-        bool apple_mode : 1;
+        uint8_t default_layer;
     };
 } user_config_t;
 
 user_config_t user_config;
+
+void eeconfig_init_user(void) { // EEPROM is getting reset
+    user_config.raw = 0;
+    eeconfig_update_user(user_config.raw);
+    set_single_persistent_default_layer(_QWERTY_MAC);
+}
 #    endif
 
 // Global variables
@@ -73,9 +78,10 @@ typedef struct {
 } tap_dance_tap_hold_t;
 #    endif
 
-bool    caps_lock = false;
-bool    def_layer = true;
-uint8_t cur_layer = _DEF_L;
+bool    caps_lock             = false;
+bool    def_layer             = true;
+uint8_t cur_layer             = _DEF_L;
+uint8_t current_default_layer = 0;
 #    ifdef MOUSEKEY_ENABLE
 bool mouse_layer = false;
 #    endif
@@ -91,8 +97,39 @@ bool lgui   = false;
 bool rgui   = false;
 #    endif
 
-// Tap dance configuration
+// Host OS Detection
+#    ifdef OS_DETECTION_ENABLE
+bool process_detected_host_os_kb(os_variant_t detected_os) {
+    if (!process_detected_host_os_user(detected_os)) {
+        return false;
+    }
+#        ifndef DISABLE_POST_INIT
+    if (user_config.default_layer) {
+        return true;
+    }
+#        endif
+    switch (detected_os) {
+        case OS_MACOS:
+        case OS_IOS:
+            default_layer_set(_QWERTY_MAC);
+            current_default_layer = _QWERTY_MAC;
+            break;
+        case OS_LINUX:
+            default_layer_set(_QWERTY_LINUX);
+            current_default_layer = _QWERTY_LINUX;
+            break;
+        case OS_WINDOWS:
+            default_layer_set(_QWERTY_WIN);
+            current_default_layer = _QWERTY_WIN;
+            break;
+        case OS_UNSURE:
+            break;
+    }
+    return true;
+}
+#    endif
 
+// Tap dance configuration
 #    ifdef TAP_DANCE_ENABLE
 
 // Define a type containing the tapdance states to be tested
@@ -414,6 +451,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 
 // Handling of layer color
 layer_state_t default_layer_state_set_user(layer_state_t state) {
+    current_default_layer = get_highest_layer(state);
     if (caps_lock) {
         set_caps_rgb();
     } else if (mouse_layer) {
@@ -507,7 +545,7 @@ bool led_update_user(led_t usb_led) {
 // Keyboard post init
 void keyboard_post_init_user(void) {
     // Read the user config from EEPROM
-    /* user_config.raw = eeconfig_read_user(); */
+    user_config.raw = eeconfig_read_user();
 
     // Init RGB
 #        ifdef RGBLIGHT_DISABLE
@@ -538,22 +576,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 #    endif
+            /* Ensure that KC_GLOBE is emitted only when the base layer is _QWERTY_MAC */
+        case KC_GLOBE:
+            if (current_default_layer != _QWERTY_MAC) {
+                // --> Inject a NOP keycode since we are not supposed to have globe on anything but mac keyboard
+                // i.e. we stop processing this key
+                return false;
+            }
+            break;
         /* Set the default persistent layer */
         case DF_M_P:
             if (!record->event.pressed) {
+#    ifndef DISABLE_POST_INIT
+                if (user_config.default_layer != _QWERTY_MAC) { // only if there is actually a change
+                    user_config.default_layer = _QWERTY_MAC;
+                    eeconfig_update_user(user_config.raw);
+                }
+#    endif
                 set_single_persistent_default_layer(_QWERTY_MAC);
+                current_default_layer = _QWERTY_MAC;
                 return false;
             }
             break;
         case DF_L_P:
             if (!record->event.pressed) {
+#    ifndef DISABLE_POST_INIT
+                if (user_config.default_layer != _QWERTY_LINUX) { // only if there is actually a change
+                    user_config.default_layer = _QWERTY_LINUX;
+                    eeconfig_update_user(user_config.raw);
+                }
+#    endif
                 set_single_persistent_default_layer(_QWERTY_LINUX);
+                current_default_layer = _QWERTY_LINUX;
                 return false;
             }
             break;
         case DF_W_P:
             if (!record->event.pressed) {
+#    ifndef DISABLE_POST_INIT
+                if (user_config.default_layer != _QWERTY_WIN) { // only if there is actually a change
+                    user_config.default_layer = _QWERTY_WIN;
+                    eeconfig_update_user(user_config.raw);
+                }
+#    endif
                 set_single_persistent_default_layer(_QWERTY_WIN);
+                current_default_layer = _QWERTY_WIN;
                 return false;
             }
             break;

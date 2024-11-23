@@ -612,12 +612,6 @@ enum custom_keycodes {
 // Mouse
 #ifdef TAP_DANCE_ENABLE
 
-#    define ACTION_TAP_DANCE_TAP_HOLD(tap, hold)                                        \
-        {                                                                               \
-            .fn        = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
-            .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),               \
-        }
-
 #    ifdef MOUSEKEY_ENABLE
 // mouse parameters setup
 #        define MK_KINETIC_SPEED
@@ -651,6 +645,36 @@ enum {
 #    define SFT_MSE KC_RSFT
 #    define TG_MSE _______
 #    define CPS_CTL CTL_T(KC_CAPS)
+
+#endif
+
+#ifdef KEY_OVERRIDE_ENABLE
+
+// macOS friendly Grave Escape
+
+// Shift + esc = ~
+const key_override_t tilde_esc_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_ESC, S(KC_GRV), _QWERTY_MAC);
+
+// GUI + esc = `
+const key_override_t grave_esc_override = ko_make_with_layers(MOD_MASK_GUI, KC_ESC, KC_GRV, _QWERTY_MAC);
+
+#    ifdef TAP_DANCE_ENABLE
+#        ifdef KEYBOARD_SHARED_EP
+// Shift + esc_glb = ~
+const key_override_t tilde_esc_glb_override = ko_make_with_layers(MOD_MASK_SHIFT, ESC_GLB, S(KC_GRV), _QWERTY_MAC);
+
+// GUI + esc_glb = `
+const key_override_t grave_esc_glb_override = ko_make_with_layers(MOD_MASK_GUI, ESC_GLB, KC_GRV, _QWERTY_MAC);
+#        endif
+#    endif
+
+const key_override_t *key_overrides[] = {&tilde_esc_override, &grave_esc_override,
+#    ifdef TAP_DANCE_ENABLE
+#        ifdef KEYBOARD_SHARED_EP
+                                         &tilde_esc_glb_override, &grave_esc_glb_override
+#        endif
+#    endif
+};
 
 #endif
 

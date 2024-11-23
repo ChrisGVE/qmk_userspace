@@ -1,9 +1,11 @@
-SHIFT_ENABLE = yes
-
 BOOTMAGIC_ENABLE = yes
-
+OS_DETECTION_ENABLE = yes
 LTO_ENABLE = yes
-# SRC += chrisgve.c
+
+SHIFT_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+COMMAND_ENABLE = no
+KEY_OVERRIDE_ENABLE = yes
 
 ifdef TAP_DANCE_ENABLE
 	INTROSPECTION_KEYMAP_C = chrisgve.c
@@ -11,11 +13,15 @@ else
 	SRC += chrisgve.c
 endif
 
+
+
 ifdef USER_NAME
 	ifeq ($(strip $(USER_NAME)), chrisgve)
 		OPT_DEFS += -DCHRISGVE
 	endif
 endif
+
+
 
 ifeq ($(strip $(DISABLE_USER_CODE)), yes)
 	OPT_DEFS += -DDISABLE_USER_CODE
