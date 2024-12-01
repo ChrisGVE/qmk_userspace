@@ -624,7 +624,8 @@ enum {
     TD_CTRL_CAPS,
     TD_ADJ_NUM,
 #    ifdef KEYBOARD_SHARED_EP
-    TD_ESC_GLOBE
+    TD_ESC_GLOBE,
+    TD_GRV_GLOBE
 #    endif
 };
 
@@ -635,6 +636,7 @@ enum {
 #    endif
 #    ifdef KEYBOARD_SHARED_EP
 #        define ESC_GLB TD(TD_ESC_GLOBE)
+#        define GRV_GLB TD(TD_GRV_GLOBE)
 #    endif
 #    define CPS_CTL TD(TD_CTRL_CAPS)
 #    define TG_NUM TG(_NUM)
