@@ -22,53 +22,53 @@
 #include QMK_KEYBOARD_H
 
 #ifndef IGNORE_MOD_TAP_INTERRUPT
-#    define IGNORE_MOD_TAP_INTERRUPT
+  #define IGNORE_MOD_TAP_INTERRUPT
 #endif
 
 // Custom layers
 enum default_layers {
-    _QWERTY_MAC, // QWERTY Mac base layout
-    MAC_BASE = _QWERTY_MAC,
-    _MAC_NAV_1,  // Mac Navigation layer 1
-    _MAC_NAV_2,  // Mac Navigation layer 2
-    _QWERTY_WIN, // QWERTY Windows base layout
-    WIN_BASE = _QWERTY_WIN,
-    _WIN_NAV_1,    // Windows Navigation layer 1
-    _WIN_NAV_2,    // Windows Navigation layer 2
-    _QWERTY_LINUX, // QWERTY Linux base layout
-    _LINUX_NAV_1,  // Linux Navigation layer 1
-    _LINUX_NAV_2,  // Linux Navigation layer 2
-    _RAISE,        // Raise layer on ortho
-    _LOWER,        // Lower layer on ortho
-    _MOUSE,        // Mouse key layer
-    _GAMING,       // Gaming layout
-    _ADJUST,       // Adjust layer
-    _NUM,          // Numerical layer (for 40% layouts)
-    _EX_MOUSE,     // Mouse key layer (exclusive)
-    _CONFIG,       // Keyboard configuration layer
+  _QWERTY_MAC, // QWERTY Mac base layout
+  MAC_BASE = _QWERTY_MAC,
+  _MAC_NAV_1,  // Mac Navigation layer 1
+  _MAC_NAV_2,  // Mac Navigation layer 2
+  _QWERTY_WIN, // QWERTY Windows base layout
+  WIN_BASE = _QWERTY_WIN,
+  _WIN_NAV_1,    // Windows Navigation layer 1
+  _WIN_NAV_2,    // Windows Navigation layer 2
+  _QWERTY_LINUX, // QWERTY Linux base layout
+  _LINUX_NAV_1,  // Linux Navigation layer 1
+  _LINUX_NAV_2,  // Linux Navigation layer 2
+  _RAISE,        // Raise layer on ortho
+  _LOWER,        // Lower layer on ortho
+  _MOUSE,        // Mouse key layer
+  _GAMING,       // Gaming layout
+  _ADJUST,       // Adjust layer
+  _NUM,          // Numerical layer (for 40% layouts)
+  _EX_MOUSE,     // Mouse key layer (exclusive)
+  _CONFIG,       // Keyboard configuration layer
 };
 
 // Custom keys
 enum custom_keycodes {
 
 #ifdef FACTORY_TEST_ENABLE // when this flag is set, it means we are compiling for keychron
-    QWERTY = NEW_SAFE_RANGE,
+  QWERTY = NEW_SAFE_RANGE,
 #else
-    QWERTY = SAFE_RANGE,
+  QWERTY = SAFE_RANGE,
 #endif
 
-    DF_M_P,  // Make Mac layer the default persistent layer
-    DF_L_P,  // Make Linux layer the default persistent layer
-    DF_W_P,  // Make Windows layer the default persistent layer
-    WIN_SWT, // Function keys F1 to F12 behave as expected
-    MAC_SWT, // Function keys F1 to F12 behave as expected if Apple Fn is sent
-    CU_BSPC, // Acts as normal Backspace and Delete when shifted
-    CU_SPBC, // Acts as normal Space and Backspace when shifted
+  DF_M_P,  // Make Mac layer the default persistent layer
+  DF_L_P,  // Make Linux layer the default persistent layer
+  DF_W_P,  // Make Windows layer the default persistent layer
+  WIN_SWT, // Function keys F1 to F12 behave as expected
+  MAC_SWT, // Function keys F1 to F12 behave as expected if Apple Fn is sent
+  CU_BSPC, // Acts as normal Backspace and Delete when shifted
+  CU_SPBC, // Acts as normal Space and Backspace when shifted
 
 #ifdef FACTORY_TEST_ENABLE // when this flag is set, it means we are compiling for keychron
-    NEW_SAFE_RANGE_2
+  NEW_SAFE_RANGE_2
 #else
-    NEW_SAFE_RANGE
+  NEW_SAFE_RANGE
 #endif
 };
 
@@ -119,6 +119,7 @@ enum custom_keycodes {
 #define S_SHIFT SFT_T(KC_S)
 #define A_SHIFT SFT_T(KC_A)
 #define R_SHIFT RSFT_T(KC_BSLS)
+#define TAB_HYP HYPR_T(KC_TAB)
 #define QUT_SFT RSFT_T(KC_QUOT)
 #define GUI_BSL RGUI_T(KC_BSLS)
 #define ALT_BSL RALT_T(KC_BSLS)
@@ -143,510 +144,508 @@ enum custom_keycodes {
 // #define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
 #ifndef MODIFIERS_ENABLE
-#    define CU_BSPC KC_BSPC
-#    define CU_SPBC KC_SPC
+  #define CU_BSPC KC_BSPC
+  #define CU_SPBC KC_SPC
 #endif
 
 // This section is copied from SpacebarRacercar userspace to insert the
 // smart shift keycode, this is governed by the MODIFIERS_ENABLE switch
 #ifdef MODIFIERS_ENABLE
 
-// Normal shift status
-#    define SHIFT_NORM(kc1, kc2)              \
-        if (record->event.pressed) {          \
-            if (lshift || rshift) {           \
-                if (lshift) {                 \
-                    register_code(KC_LSFT);   \
-                } else {                      \
-                    register_code(KC_RSFT);   \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lshift) {                 \
-                    unregister_code(KC_LSFT); \
-                } else {                      \
-                    unregister_code(KC_RSFT); \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-        }                                     \
-        return false;
+  // Normal shift status
+  #define SHIFT_NORM(kc1, kc2)      \
+    if (record->event.pressed) {    \
+      if (lshift || rshift) {       \
+        if (lshift) {               \
+          register_code(KC_LSFT);   \
+        } else {                    \
+          register_code(KC_RSFT);   \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lshift) {               \
+          unregister_code(KC_LSFT); \
+        } else {                    \
+          unregister_code(KC_RSFT); \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+    }                               \
+    return false;
 
-// Normal ctrl status
-#    define CTRL_NORM(kc1, kc2)               \
-        if (record->event.pressed) {          \
-            if (lctrl || rctrl) {             \
-                if (lctrl) {                  \
-                    register_code(KC_LCTL);   \
-                } else {                      \
-                    register_code(KC_RCTL);   \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lctrl) {                  \
-                    unregister_code(KC_LCTL); \
-                } else {                      \
-                    unregister_code(KC_RCTL); \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-        }                                     \
-        return false;
+  // Normal ctrl status
+  #define CTRL_NORM(kc1, kc2)       \
+    if (record->event.pressed) {    \
+      if (lctrl || rctrl) {         \
+        if (lctrl) {                \
+          register_code(KC_LCTL);   \
+        } else {                    \
+          register_code(KC_RCTL);   \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lctrl) {                \
+          unregister_code(KC_LCTL); \
+        } else {                    \
+          unregister_code(KC_RCTL); \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+    }                               \
+    return false;
 
-// Normal alt status
-#    define ALT_NORM(kc1, kc2)                \
-        if (record->event.pressed) {          \
-            if (lalt || ralt) {               \
-                if (lalt) {                   \
-                    register_code(KC_LALT);   \
-                } else {                      \
-                    register_code(KC_RALT);   \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lalt) {                   \
-                    unregister_code(KC_LALT); \
-                } else {                      \
-                    unregister_code(KC_RALT); \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-        }                                     \
-        return false;
+  // Normal alt status
+  #define ALT_NORM(kc1, kc2)        \
+    if (record->event.pressed) {    \
+      if (lalt || ralt) {           \
+        if (lalt) {                 \
+          register_code(KC_LALT);   \
+        } else {                    \
+          register_code(KC_RALT);   \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lalt) {                 \
+          unregister_code(KC_LALT); \
+        } else {                    \
+          unregister_code(KC_RALT); \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+    }                               \
+    return false;
 
-// Normal gui status
-#    define GUI_NORM(kc1, kc2)                \
-        if (record->event.pressed) {          \
-            if (lgui || rgui) {               \
-                if (lgui) {                   \
-                    register_code(KC_LGUI);   \
-                } else {                      \
-                    register_code(KC_RGUI);   \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lgui) {                   \
-                    unregister_code(KC_LGUI); \
-                } else {                      \
-                    unregister_code(KC_RGUI); \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-        }                                     \
-        return false;
+  // Normal gui status
+  #define GUI_NORM(kc1, kc2)        \
+    if (record->event.pressed) {    \
+      if (lgui || rgui) {           \
+        if (lgui) {                 \
+          register_code(KC_LGUI);   \
+        } else {                    \
+          register_code(KC_RGUI);   \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lgui) {                 \
+          unregister_code(KC_LGUI); \
+        } else {                    \
+          unregister_code(KC_RGUI); \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+    }                               \
+    return false;
 
-// Inverted shift status
-#    define SHIFT_SWITCH(kc1, kc2)            \
-        if (record->event.pressed) {          \
-            if (lshift || rshift) {           \
-                if (lshift) {                 \
-                    unregister_code(KC_LSFT); \
-                } else {                      \
-                    unregister_code(KC_RSFT); \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lshift) {                 \
-                    register_code(KC_LSFT);   \
-                } else {                      \
-                    register_code(KC_RSFT);   \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-            if (lshift || rshift)             \
-                if (lshift) {                 \
-                    register_code(KC_LSFT);   \
-                } else {                      \
-                    register_code(KC_RSFT);   \
-                }                             \
-            else {                            \
-                unregister_code(KC_LSFT);     \
-                unregister_code(KC_RSFT);     \
-            }                                 \
-        }                                     \
-        return false;
+  // Inverted shift status
+  #define SHIFT_SWITCH(kc1, kc2)    \
+    if (record->event.pressed) {    \
+      if (lshift || rshift) {       \
+        if (lshift) {               \
+          unregister_code(KC_LSFT); \
+        } else {                    \
+          unregister_code(KC_RSFT); \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lshift) {               \
+          register_code(KC_LSFT);   \
+        } else {                    \
+          register_code(KC_RSFT);   \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+      if (lshift || rshift)         \
+        if (lshift) {               \
+          register_code(KC_LSFT);   \
+        } else {                    \
+          register_code(KC_RSFT);   \
+        }                           \
+      else {                        \
+        unregister_code(KC_LSFT);   \
+        unregister_code(KC_RSFT);   \
+      }                             \
+    }                               \
+    return false;
 
-// Inverted ctrl status
-#    define CTRL_SWITCH(kc1, kc2)             \
-        if (record->event.pressed) {          \
-            if (lctrl || rctrl) {             \
-                if (lctrl) {                  \
-                    unregister_code(KC_LCTL); \
-                } else {                      \
-                    unregister_code(KC_RCTL); \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lctrl) {                  \
-                    register_code(KC_LCTL);   \
-                } else {                      \
-                    register_code(KC_RCTL);   \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-            if (lctrl || rctrl)               \
-                if (lctrl) {                  \
-                    register_code(KC_LCTL);   \
-                } else {                      \
-                    register_code(KC_RCTL);   \
-                }                             \
-            else {                            \
-                unregister_code(KC_LCTL);     \
-                unregister_code(KC_RCTL);     \
-            }                                 \
-        }                                     \
-        return false;
+  // Inverted ctrl status
+  #define CTRL_SWITCH(kc1, kc2)     \
+    if (record->event.pressed) {    \
+      if (lctrl || rctrl) {         \
+        if (lctrl) {                \
+          unregister_code(KC_LCTL); \
+        } else {                    \
+          unregister_code(KC_RCTL); \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lctrl) {                \
+          register_code(KC_LCTL);   \
+        } else {                    \
+          register_code(KC_RCTL);   \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+      if (lctrl || rctrl)           \
+        if (lctrl) {                \
+          register_code(KC_LCTL);   \
+        } else {                    \
+          register_code(KC_RCTL);   \
+        }                           \
+      else {                        \
+        unregister_code(KC_LCTL);   \
+        unregister_code(KC_RCTL);   \
+      }                             \
+    }                               \
+    return false;
 
-// Inverted alt status
-#    define ALT_SWITCH(kc1, kc2)              \
-        if (record->event.pressed) {          \
-            if (lalt || ralt) {               \
-                if (lalt) {                   \
-                    unregister_code(KC_LALT); \
-                } else {                      \
-                    unregister_code(KC_RALT); \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lalt) {                   \
-                    register_code(KC_LALT);   \
-                } else {                      \
-                    register_code(KC_RALT);   \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-            if (lalt || ralt)                 \
-                if (lalt) {                   \
-                    register_code(KC_LALT);   \
-                } else {                      \
-                    register_code(KC_RALT);   \
-                }                             \
-            else {                            \
-                unregister_code(KC_LALT);     \
-                unregister_code(KC_RALT);     \
-            }                                 \
-        }                                     \
-        return false;
+  // Inverted alt status
+  #define ALT_SWITCH(kc1, kc2)      \
+    if (record->event.pressed) {    \
+      if (lalt || ralt) {           \
+        if (lalt) {                 \
+          unregister_code(KC_LALT); \
+        } else {                    \
+          unregister_code(KC_RALT); \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lalt) {                 \
+          register_code(KC_LALT);   \
+        } else {                    \
+          register_code(KC_RALT);   \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+      if (lalt || ralt)             \
+        if (lalt) {                 \
+          register_code(KC_LALT);   \
+        } else {                    \
+          register_code(KC_RALT);   \
+        }                           \
+      else {                        \
+        unregister_code(KC_LALT);   \
+        unregister_code(KC_RALT);   \
+      }                             \
+    }                               \
+    return false;
 
-// Inverted gui status
-#    define GUI_SWITCH(kc1, kc2)              \
-        if (record->event.pressed) {          \
-            if (lgui || rgui) {               \
-                if (lgui) {                   \
-                    unregister_code(KC_LGUI); \
-                } else {                      \
-                    unregister_code(KC_RGUI); \
-                }                             \
-                unregister_code(kc2);         \
-                register_code(kc2);           \
-            } else {                          \
-                if (lgui) {                   \
-                    register_code(KC_LGUI);   \
-                } else {                      \
-                    register_code(KC_RGUI);   \
-                }                             \
-                unregister_code(kc1);         \
-                register_code(kc1);           \
-            }                                 \
-        } else {                              \
-            unregister_code(kc1);             \
-            unregister_code(kc2);             \
-            if (lgui || rgui)                 \
-                if (lgui) {                   \
-                    register_code(KC_LGUI);   \
-                } else {                      \
-                    register_code(KC_RGUI);   \
-                }                             \
-            else {                            \
-                unregister_code(KC_LGUI);     \
-                unregister_code(KC_RGUI);     \
-            }                                 \
-        }                                     \
-        return false;
+  // Inverted gui status
+  #define GUI_SWITCH(kc1, kc2)      \
+    if (record->event.pressed) {    \
+      if (lgui || rgui) {           \
+        if (lgui) {                 \
+          unregister_code(KC_LGUI); \
+        } else {                    \
+          unregister_code(KC_RGUI); \
+        }                           \
+        unregister_code(kc2);       \
+        register_code(kc2);         \
+      } else {                      \
+        if (lgui) {                 \
+          register_code(KC_LGUI);   \
+        } else {                    \
+          register_code(KC_RGUI);   \
+        }                           \
+        unregister_code(kc1);       \
+        register_code(kc1);         \
+      }                             \
+    } else {                        \
+      unregister_code(kc1);         \
+      unregister_code(kc2);         \
+      if (lgui || rgui)             \
+        if (lgui) {                 \
+          register_code(KC_LGUI);   \
+        } else {                    \
+          register_code(KC_RGUI);   \
+        }                           \
+      else {                        \
+        unregister_code(KC_LGUI);   \
+        unregister_code(KC_RGUI);   \
+      }                             \
+    }                               \
+    return false;
 
-// Always shifted
-#    define SHIFT_ALL(kc1, kc2)             \
-        if (record->event.pressed) {        \
-            register_code(KC_LSFT);         \
-            if (lshift || rshift) {         \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lshift || rshift)           \
-                if (lshift)                 \
-                    register_code(KC_LSFT); \
-                else                        \
-                    register_code(KC_RSFT); \
-            else                            \
-                unregister_code(KC_LSFT);   \
-        }                                   \
-        return false;
+  // Always shifted
+  #define SHIFT_ALL(kc1, kc2)     \
+    if (record->event.pressed) {  \
+      register_code(KC_LSFT);     \
+      if (lshift || rshift) {     \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lshift || rshift)       \
+        if (lshift)               \
+          register_code(KC_LSFT); \
+        else                      \
+          register_code(KC_RSFT); \
+      else                        \
+        unregister_code(KC_LSFT); \
+    }                             \
+    return false;
 
-// Always with control
-#    define CTRL_ALL(kc1, kc2)              \
-        if (record->event.pressed) {        \
-            register_code(KC_LCTL);         \
-            if (lctrl || rctrl) {           \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lctrl || rctrl)             \
-                if (lctrl)                  \
-                    register_code(KC_LCTL); \
-                else                        \
-                    register_code(KC_RCTL); \
-            else                            \
-                unregister_code(KC_LCTL);   \
-        }                                   \
-        return false;
+  // Always with control
+  #define CTRL_ALL(kc1, kc2)      \
+    if (record->event.pressed) {  \
+      register_code(KC_LCTL);     \
+      if (lctrl || rctrl) {       \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lctrl || rctrl)         \
+        if (lctrl)                \
+          register_code(KC_LCTL); \
+        else                      \
+          register_code(KC_RCTL); \
+      else                        \
+        unregister_code(KC_LCTL); \
+    }                             \
+    return false;
 
-// Always with alt
-#    define ALT_ALL(kc1, kc2)               \
-        if (record->event.pressed) {        \
-            register_code(KC_LALT);         \
-            if (lalt || ralt) {             \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lalt || ralt)               \
-                if (lalt)                   \
-                    register_code(KC_LALT); \
-                else                        \
-                    register_code(KC_RALT); \
-            else                            \
-                unregister_code(KC_LALT);   \
-        }                                   \
-        return false;
+  // Always with alt
+  #define ALT_ALL(kc1, kc2)       \
+    if (record->event.pressed) {  \
+      register_code(KC_LALT);     \
+      if (lalt || ralt) {         \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lalt || ralt)           \
+        if (lalt)                 \
+          register_code(KC_LALT); \
+        else                      \
+          register_code(KC_RALT); \
+      else                        \
+        unregister_code(KC_LALT); \
+    }                             \
+    return false;
 
-// Always with gui
-#    define GUI_ALL(kc1, kc2)               \
-        if (record->event.pressed) {        \
-            register_code(KC_LGUI);         \
-            if (lgui || rgui) {             \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lgui || rgui)               \
-                if (lgui)                   \
-                    register_code(KC_LGUI); \
-                else                        \
-                    register_code(KC_RGUI); \
-            else                            \
-                unregister_code(KC_LGUI);   \
-        }                                   \
-        return false;
+  // Always with gui
+  #define GUI_ALL(kc1, kc2)       \
+    if (record->event.pressed) {  \
+      register_code(KC_LGUI);     \
+      if (lgui || rgui) {         \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lgui || rgui)           \
+        if (lgui)                 \
+          register_code(KC_LGUI); \
+        else                      \
+          register_code(KC_RGUI); \
+      else                        \
+        unregister_code(KC_LGUI); \
+    }                             \
+    return false;
 
-// Never shifted
-#    define SHIFT_NO(kc1, kc2)              \
-        if (record->event.pressed) {        \
-            unregister_code(KC_LSFT);       \
-            unregister_code(KC_RSFT);       \
-            if (lshift || rshift) {         \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lshift || rshift) {         \
-                if (lshift) {               \
-                    register_code(KC_LSFT); \
-                } else {                    \
-                    register_code(KC_RSFT); \
-                }                           \
-            } else {                        \
-                unregister_code(KC_LSFT);   \
-                unregister_code(KC_RSFT);   \
-            }                               \
-        }                                   \
-        return false;
+  // Never shifted
+  #define SHIFT_NO(kc1, kc2)      \
+    if (record->event.pressed) {  \
+      unregister_code(KC_LSFT);   \
+      unregister_code(KC_RSFT);   \
+      if (lshift || rshift) {     \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lshift || rshift) {     \
+        if (lshift) {             \
+          register_code(KC_LSFT); \
+        } else {                  \
+          register_code(KC_RSFT); \
+        }                         \
+      } else {                    \
+        unregister_code(KC_LSFT); \
+        unregister_code(KC_RSFT); \
+      }                           \
+    }                             \
+    return false;
 
-// Never with Ctrl
-#    define CTRL_NO(kc1, kc2)               \
-        if (record->event.pressed) {        \
-            unregister_code(KC_LCTL);       \
-            unregister_code(KC_RCTL);       \
-            if (lctrl || rctrl) {           \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lctrl || rctrl) {           \
-                if (lctrl) {                \
-                    register_code(KC_LCTL); \
-                } else {                    \
-                    register_code(KC_RCTL); \
-                }                           \
-            } else {                        \
-                unregister_code(KC_LCTL);   \
-                unregister_code(KC_RCTL);   \
-            }                               \
-        }                                   \
-        return false;
+  // Never with Ctrl
+  #define CTRL_NO(kc1, kc2)       \
+    if (record->event.pressed) {  \
+      unregister_code(KC_LCTL);   \
+      unregister_code(KC_RCTL);   \
+      if (lctrl || rctrl) {       \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lctrl || rctrl) {       \
+        if (lctrl) {              \
+          register_code(KC_LCTL); \
+        } else {                  \
+          register_code(KC_RCTL); \
+        }                         \
+      } else {                    \
+        unregister_code(KC_LCTL); \
+        unregister_code(KC_RCTL); \
+      }                           \
+    }                             \
+    return false;
 
-// Never with Alt
-#    define ALT_NO(kc1, kc2)                \
-        if (record->event.pressed) {        \
-            unregister_code(KC_LALT);       \
-            unregister_code(KC_RALT);       \
-            if (lalt || ralt) {             \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lalt || ralt) {             \
-                if (lalt) {                 \
-                    register_code(KC_LALT); \
-                } else {                    \
-                    register_code(KC_RALT); \
-                }                           \
-            } else {                        \
-                unregister_code(KC_LALT);   \
-                unregister_code(KC_RALT);   \
-            }                               \
-        }                                   \
-        return false;
+  // Never with Alt
+  #define ALT_NO(kc1, kc2)        \
+    if (record->event.pressed) {  \
+      unregister_code(KC_LALT);   \
+      unregister_code(KC_RALT);   \
+      if (lalt || ralt) {         \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lalt || ralt) {         \
+        if (lalt) {               \
+          register_code(KC_LALT); \
+        } else {                  \
+          register_code(KC_RALT); \
+        }                         \
+      } else {                    \
+        unregister_code(KC_LALT); \
+        unregister_code(KC_RALT); \
+      }                           \
+    }                             \
+    return false;
 
-// Never with gui
-#    define GUI_NO(kc1, kc2)                \
-        if (record->event.pressed) {        \
-            unregister_code(KC_LGUI);       \
-            unregister_code(KC_RGUI);       \
-            if (lgui || rgui) {             \
-                unregister_code(kc2);       \
-                register_code(kc2);         \
-            } else {                        \
-                unregister_code(kc1);       \
-                register_code(kc1);         \
-            }                               \
-        } else {                            \
-            unregister_code(kc1);           \
-            unregister_code(kc2);           \
-            if (lgui || rgui) {             \
-                if (lgui) {                 \
-                    register_code(KC_LGUI); \
-                } else {                    \
-                    register_code(KC_RGUI); \
-                }                           \
-            } else {                        \
-                unregister_code(KC_LGUI);   \
-                unregister_code(KC_RGUI);   \
-            }                               \
-        }                                   \
-        return false;
+  // Never with gui
+  #define GUI_NO(kc1, kc2)        \
+    if (record->event.pressed) {  \
+      unregister_code(KC_LGUI);   \
+      unregister_code(KC_RGUI);   \
+      if (lgui || rgui) {         \
+        unregister_code(kc2);     \
+        register_code(kc2);       \
+      } else {                    \
+        unregister_code(kc1);     \
+        register_code(kc1);       \
+      }                           \
+    } else {                      \
+      unregister_code(kc1);       \
+      unregister_code(kc2);       \
+      if (lgui || rgui) {         \
+        if (lgui) {               \
+          register_code(KC_LGUI); \
+        } else {                  \
+          register_code(KC_RGUI); \
+        }                         \
+      } else {                    \
+        unregister_code(KC_LGUI); \
+        unregister_code(KC_RGUI); \
+      }                           \
+    }                             \
+    return false;
 
 #endif
 
 // Mouse
 #ifdef TAP_DANCE_ENABLE
 
-#    ifdef MOUSEKEY_ENABLE
-// mouse parameters setup
-#        define MK_KINETIC_SPEED
-// #        define MOUSEKEY_WHEEL_TIME_TO_MAX 80
-#    endif
+  #ifdef MOUSEKEY_ENABLE
+    // mouse parameters setup
+    #define MK_KINETIC_SPEED
+  // #        define MOUSEKEY_WHEEL_TIME_TO_MAX 80
+  #endif
 
 // Tap Dance declarations
 enum {
-    TD_LSHIFT_MOUSE,
-    TD_CTRL_CAPS,
-    TD_ADJ_NUM,
-#    ifdef KEYBOARD_SHARED_EP
-    TD_ESC_GLOBE,
-    TD_GRV_GLOBE
-#    endif
+  TD_LSHIFT_MOUSE,
+  TD_CTRL_CAPS,
+  TD_ADJ_NUM,
+  #ifdef KEYBOARD_SHARED_EP
+  TD_ESC_GLOBE,
+  #endif
 };
 
-// Define the keycode for the tap dance
-#    ifdef MOUSEKEY_ENABLE
-#        define SFT_MSE TD(TD_LSHIFT_MOUSE)
-#        define TG_MSE TG(_EX_MOUSE)
-#    endif
-#    ifdef KEYBOARD_SHARED_EP
-#        define ESC_GLB TD(TD_ESC_GLOBE)
-#        define GRV_GLB TD(TD_GRV_GLOBE)
-#    endif
-#    define CPS_CTL TD(TD_CTRL_CAPS)
-#    define TG_NUM TG(_NUM)
-#    define TD_ADJ TD(TD_ADJ_NUM)
+  // Define the keycode for the tap dance
+  #ifdef MOUSEKEY_ENABLE
+    #define SFT_MSE TD(TD_LSHIFT_MOUSE)
+    #define TG_MSE TG(_EX_MOUSE)
+  #endif
+  #ifdef KEYBOARD_SHARED_EP
+    #define ESC_GLB TD(TD_ESC_GLOBE)
+  #endif
+  #define CPS_CTL TD(TD_CTRL_CAPS)
+  #define TG_NUM TG(_NUM)
+  #define TD_ADJ TD(TD_ADJ_NUM)
 
 #else
 
-#    define SFT_MSE KC_RSFT
-#    define TG_MSE _______
-#    define CPS_CTL CTL_T(KC_CAPS)
+  #define SFT_MSE KC_RSFT
+  #define TG_MSE _______
+  #define CPS_CTL CTL_T(KC_CAPS)
 
 #endif
 
@@ -660,22 +659,22 @@ const key_override_t tilde_esc_override = ko_make_with_layers(MOD_MASK_SHIFT, KC
 // GUI + esc = `
 const key_override_t grave_esc_override = ko_make_with_layers(MOD_MASK_GUI, KC_ESC, KC_GRV, _QWERTY_MAC);
 
-#    ifdef TAP_DANCE_ENABLE
-#        ifdef KEYBOARD_SHARED_EP
+  #ifdef TAP_DANCE_ENABLE
+    #ifdef KEYBOARD_SHARED_EP
 // Shift + esc_glb = ~
 const key_override_t tilde_esc_glb_override = ko_make_with_layers(MOD_MASK_SHIFT, ESC_GLB, S(KC_GRV), _QWERTY_MAC);
 
 // GUI + esc_glb = `
 const key_override_t grave_esc_glb_override = ko_make_with_layers(MOD_MASK_GUI, ESC_GLB, KC_GRV, _QWERTY_MAC);
-#        endif
-#    endif
+    #endif
+  #endif
 
 const key_override_t *key_overrides[] = {&tilde_esc_override, &grave_esc_override,
-#    ifdef TAP_DANCE_ENABLE
-#        ifdef KEYBOARD_SHARED_EP
+  #ifdef TAP_DANCE_ENABLE
+    #ifdef KEYBOARD_SHARED_EP
                                          &tilde_esc_glb_override, &grave_esc_glb_override
-#        endif
-#    endif
+    #endif
+  #endif
 };
 
 #endif
