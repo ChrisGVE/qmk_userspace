@@ -60,6 +60,7 @@ enum custom_keycodes {
   DF_M_P,  // Make Mac layer the default persistent layer
   DF_L_P,  // Make Linux layer the default persistent layer
   DF_W_P,  // Make Windows layer the default persistent layer
+  DF_G_P,  // Make Gaming layer the default persistent layer
   WIN_SWT, // Function keys F1 to F12 behave as expected
   MAC_SWT, // Function keys F1 to F12 behave as expected if Apple Fn is sent
   CU_BSPC, // Acts as normal Backspace and Delete when shifted

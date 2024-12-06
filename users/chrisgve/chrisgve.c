@@ -628,6 +628,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
+    case DF_G_P:
+      if (!record->event.pressed) {
+  #ifndef DISABLE_POST_INIT
+        if (user_config.default_layer != _GAMING) { // only if there is actually a change
+          user_config.default_layer = _GAMING;
+          eeconfig_update_user(user_config.raw);
+        }
+  #endif
+        set_single_persistent_default_layer(_GAMING);
+        current_default_layer = _GAMING;
+        return false;
+      }
+      break;
   #ifdef MODIFIERS_ENABLE
     /* Monitor shift state */
     case SFT_MSE:
