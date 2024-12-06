@@ -1,5 +1,5 @@
 BOOTMAGIC_ENABLE = yes
-OS_DETECTION_ENABLE = yes
+OS_DETECTION_ENABLE = no # must be explicitly enabled
 LTO_ENABLE = yes
 EXTRAKEYS_ENABLE = yes
 NKRO_ENABLE= yes

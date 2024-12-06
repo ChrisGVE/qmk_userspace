@@ -567,11 +567,14 @@ void keyboard_post_init_user(void) {
 // Key handling
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
+    #ifdef KEYBOARD_SHARED_EP
   tap_dance_action_t *action;
+    #endif
   #endif
 
   switch (keycode) {
   #ifdef TAP_DANCE_ENABLE
+    #ifdef KEYBOARD_SHARED_EP
     case TD(TD_ESC_GLOBE): // list all tap dance keycodes with tap-hold configurations
       action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
       if (!record->event.pressed && action->state.count && !action->state.finished) {
@@ -579,8 +582,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(tap_hold->tap);
       }
       break;
+    #endif
   #endif
       /* Ensure that KC_GLOBE is emitted only when the base layer is _QWERTY_MAC */
+  #ifdef KEYBOARD_SHARED_EP
     case KC_GLOBE:
       if (current_default_layer != _QWERTY_MAC) {
         // --> Inject a NOP keycode since we are not supposed to have globe on anything but mac keyboard
@@ -588,6 +593,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
+  #endif
     /* Set the default persistent layer */
     case DF_M_P:
       if (!record->event.pressed) {

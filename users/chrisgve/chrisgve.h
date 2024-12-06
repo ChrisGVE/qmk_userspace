@@ -652,6 +652,7 @@ enum {
 
 #ifdef KEY_OVERRIDE_ENABLE
 
+  #ifndef FACTORY_TEST_ENABLE // when this flag is set, it means we are compiling for keychron
 // macOS friendly Grave Escape
 
 // Shift + esc = ~
@@ -660,24 +661,24 @@ const key_override_t tilde_esc_override = ko_make_with_layers(MOD_MASK_SHIFT, KC
 // GUI + esc = `
 const key_override_t grave_esc_override = ko_make_with_layers(MOD_MASK_GUI, KC_ESC, KC_GRV, _QWERTY_MAC);
 
-  #ifdef TAP_DANCE_ENABLE
-    #ifdef KEYBOARD_SHARED_EP
+    #ifdef TAP_DANCE_ENABLE
+      #ifdef KEYBOARD_SHARED_EP
 // Shift + esc_glb = ~
 const key_override_t tilde_esc_glb_override = ko_make_with_layers(MOD_MASK_SHIFT, ESC_GLB, S(KC_GRV), _QWERTY_MAC);
 
 // GUI + esc_glb = `
 const key_override_t grave_esc_glb_override = ko_make_with_layers(MOD_MASK_GUI, ESC_GLB, KC_GRV, _QWERTY_MAC);
+      #endif
     #endif
-  #endif
 
 const key_override_t *key_overrides[] = {&tilde_esc_override, &grave_esc_override,
-  #ifdef TAP_DANCE_ENABLE
-    #ifdef KEYBOARD_SHARED_EP
+    #ifdef TAP_DANCE_ENABLE
+      #ifdef KEYBOARD_SHARED_EP
                                          &tilde_esc_glb_override, &grave_esc_glb_override
+      #endif
     #endif
-  #endif
 };
-
+  #endif
 #endif
 
 // #define TAPPING_TOGGLE 2
