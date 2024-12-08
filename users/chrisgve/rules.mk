@@ -6,8 +6,8 @@ NKRO_ENABLE= yes
 SHIFT_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 COMMAND_ENABLE = no
-KEY_OVERRIDE_ENABLE = yes
 MOUSEKEY_ENABLE = yes
+CONSOLE_ENABLE = no
 
 ifdef TAP_DANCE_ENABLE
 	INTROSPECTION_KEYMAP_C = chrisgve.c
@@ -15,15 +15,11 @@ else
 	SRC += chrisgve.c
 endif
 
-
-
 ifdef USER_NAME
 	ifeq ($(strip $(USER_NAME)), chrisgve)
 		OPT_DEFS += -DCHRISGVE
 	endif
 endif
-
-
 
 ifeq ($(strip $(DISABLE_USER_CODE)), yes)
 	OPT_DEFS += -DDISABLE_USER_CODE
