@@ -20,7 +20,7 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_GAMING] = LAYOUT_chrisgve(
+    [_GAMING] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,              KC_PSCR, KC_SCRL, KC_PAUS,
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,     KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
@@ -29,16 +29,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LALT, KC_LGUI,                                     KC_SPC,                             KC_RGUI, KC_RALT, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_QWERTY_MAC] = LAYOUT_chrisgve(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,              KC_PSCR, KC_SCRL, KC_PAUS,
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,     KC_INS,  KC_HOME, KC_PGUP,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
+    [_QWERTY_MAC] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  CAPTURE,              KC_MPLY, KC_GLB,  KC_PAUS,
+        ESC_GLB, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,     KC_INS,  KC_HOME, KC_PGUP,
+        TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
         KC_LCTL, A_MOUSE, KC_S,    M_NAV_1, M_F_NAV, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
         SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT, ADJUST,                       KC_UP,
-        KC_LCTL, KC_LALT, KC_LGUI,                                     SPC_RSE,                            KC_RGUI, KC_RALT, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT
+        KC_HYPR, KC_LALT, KC_LGUI,                                     SPC_RSE,                            KC_RGUI, KC_RALT, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_MAC_NAV_1] = LAYOUT_chrisgve(
+    [_MAC_NAV_1] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         _______, _______, M_F_WRD, _______, _______, _______, M_YANK,  _______, _______, _______, M_PUT,   _______, _______, _______,             _______, _______, _______,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_MAC_NAV_2] = LAYOUT_chrisgve(
+    [_MAC_NAV_2] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
@@ -56,16 +56,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_QWERTY_LINUX] = LAYOUT_chrisgve(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,              KC_PSCR, KC_SCRL, KC_PAUS,
+    [_QWERTY_LINUX] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,             KC_MPLY, KC_SCRL, KC_PAUS,
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,     KC_INS,  KC_HOME, KC_PGUP,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
+        TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
         KC_LCTL, A_MOUSE, KC_S,    L_NAV_1, L_F_NAV, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
         SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT, ADJUST,                       KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                                     SPC_RSE,                            KC_RALT, KC_RGUI, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_LINUX_NAV_1] = LAYOUT_chrisgve(
+    [_LINUX_NAV_1] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         _______, _______, L_F_WRD, _______, _______, _______, L_YANK,  _______, _______, _______, L_PUT,   _______, _______, _______,             _______, _______, _______,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_LINUX_NAV_2] = LAYOUT_chrisgve(
+    [_LINUX_NAV_2] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
@@ -83,16 +83,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_QWERTY_WIN] = LAYOUT_chrisgve(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,              KC_PSCR, KC_SCRL, KC_PAUS,
+    [_QWERTY_WIN] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,             KC_MPLY, KC_SCRL, KC_PAUS,
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,     KC_INS,  KC_HOME, KC_PGUP,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
+        TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,             KC_DEL,  KC_END,  KC_PGDN,
         KC_LCTL, A_MOUSE, KC_S,    W_NAV_1, W_F_NAV, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
         SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT, ADJUST,                       KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                                     SPC_RSE,                            KC_RALT, KC_RGUI, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_WIN_NAV_1] = LAYOUT_chrisgve(
+    [_WIN_NAV_1] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         _______, _______, W_F_WRD, _______, _______, _______, W_YANK,  _______, _______, _______, W_PUT,   _______, _______, _______,             _______, _______, _______,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_WIN_NAV_2] = LAYOUT_chrisgve(
+    [_WIN_NAV_2] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_RAISE] = LAYOUT_chrisgve(
+    [_RAISE] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,  _______,    _______, _______, _______,
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, KC_PLUS, KC_DEL,              _______, _______, _______,
@@ -119,16 +119,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     _______,                            _______, _______, _______,             _______, _______, _______
     ),
 
-    [_ADJUST] = LAYOUT_chrisgve(
+    [_ADJUST] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         QK_BOOT, MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, WM_UP,   _______, KC_DEL,              _______, _______, _______,
-        KC_CAPS, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, WM_LEFT, WM_RGHT,          _______,
+        KC_CAPS, DF_M_P,  DF_L_P,  DF_W_P,  DF_G_P,  KC_GLB,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, WM_LEFT, WM_RGHT,          _______,
         _______,          DF_MAC,  DF_LNX,  DF_WIN,  DF_GMG,  _______, _______, KC_MUTE, _______, _______, WM_DOWN, _______, _______,                      KC_VOLU,
         _______, _______, _______,                                     KC_MPLY,                            _______, _______, _______,             KC_MPRV, KC_VOLD, KC_MNXT
     ),
 
-    [_MOUSE] = LAYOUT_chrisgve(
+    [_MOUSE] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, KC_WH_U,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, KC_WH_D,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                     KC_BTN1,                            _______, _______, _______,             KC_MS_L, KC_MS_D, KC_MS_R
     ),
 
-    [_EX_MOUSE] = LAYOUT_chrisgve(
+    [_EX_MOUSE] = LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift(
         TG_MSE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, KC_WH_U,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX, XXXXXXX, KC_WH_D,
