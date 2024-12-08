@@ -672,6 +672,8 @@ enum tap_dance_codes {
 #define M_YANK G(KC_C)
 #define M_PUT G(KC_V)
 #define M_DEL G(KC_X)
+// Screen capture
+#define CAPTURE SFT_T(GUI_T(5))
 
 // Linux only definitions
 #define L_NAV_1 LT(_LINUX_NAV_1, KC_D)
