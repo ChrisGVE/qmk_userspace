@@ -25,6 +25,10 @@ ifeq ($(strip $(DISABLE_USER_CODE)), yes)
 	OPT_DEFS += -DDISABLE_USER_CODE
 endif
 
+ifeq ($(strip $(DISABLE_LAYER_TRACKING)), yes)
+	OPT_DEFS += -DDISABLE_LAYER_TRACKING
+endif
+
 ifeq ($(strip $(DISABLE_POST_INIT)), yes)
 	OPT_DEFS += -DDISABLE_POST_INIT
 endif
