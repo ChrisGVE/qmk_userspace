@@ -1,6 +1,14 @@
 # QMK Userspace
 
-This is a template repository which allows for an external set of QMK keymaps to be defined and compiled. This is useful for users who want to maintain their own keymaps without having to fork the main QMK repository.
+This is chris' collection of keyboard layouts with my own user code to augment the capabilities of QMK for my needs and taste.
+
+## Main features
+
+My keyboard layout of choice is the HHKB, though I don't mind using larger keyboards they are all made as extensions of the HHKB keyboard (or subset for <60% keyboards). Another important element is that as a (n)vim user I use the typical shortcuts of vim for moving around the screen. In particular when it comes to mapping arrows I will prefer to opt for `hjkl` keys even if the keyboard has dedicated arrow keys.
+
+I am also using macOS as my main operating system, but I also use Windows for my day work, and at times Linux as well. Thus my keyboards must be able to support the three layouts.
+
+Finally, when the board allows it, I like to use backlighting to indicate if caps lock is on, and if colors are available I like to indicate which layer I am activating temporarily. There are only two cases when the keyboard lighting stays on: for caps lock, as indicated earlier, and when the keyboard is in exclusive mouse mode (requires a double tap of the left shift), other than that colors are only transient.
 
 ## Howto configure your build targets
 
@@ -9,14 +17,14 @@ This is a template repository which allows for an external set of QMK keymaps to
 1. Clone your fork to your local machine
 1. Enable userspace in QMK config using `qmk config user.overlay_dir="$(realpath qmk_userspace)"`
 1. Add a new keymap for your board using `qmk new-keymap`
-    * This will create a new keymap in the `keyboards` directory, in the same location that would normally be used in the main QMK repository. For example, if you wanted to add a keymap for the Planck, it will be created in `keyboards/planck/keymaps/<your keymap name>`
-    * You can also create a new keymap using `qmk new-keymap -kb <your_keyboard> -km <your_keymap>`
-    * Alternatively, add your keymap manually by placing it in the location specified above.
-    * `layouts/<layout name>/<your keymap name>/keymap.*` is also supported if you prefer the layout system
+    - This will create a new keymap in the `keyboards` directory, in the same location that would normally be used in the main QMK repository. For example, if you wanted to add a keymap for the Planck, it will be created in `keyboards/planck/keymaps/<your keymap name>`
+    - You can also create a new keymap using `qmk new-keymap -kb <your_keyboard> -km <your_keymap>`
+    - Alternatively, add your keymap manually by placing it in the location specified above.
+    - `layouts/<layout name>/<your keymap name>/keymap.*` is also supported if you prefer the layout system
 1. Add your keymap(s) to the build by running `qmk userspace-add -kb <your_keyboard> -km <your_keymap>`
-    * This will automatically update your `qmk.json` file
-    * Corresponding `qmk userspace-remove -kb <your_keyboard> -km <your_keymap>` will delete it
-    * Listing the build targets can be done with `qmk userspace-list`
+    - This will automatically update your `qmk.json` file
+    - Corresponding `qmk userspace-remove -kb <your_keyboard> -km <your_keymap>` will delete it
+    - Listing the build targets can be done with `qmk userspace-list`
 1. Commit your changes
 
 ## Howto build with GitHub
@@ -34,7 +42,7 @@ This is a template repository which allows for an external set of QMK keymaps to
 1. Clone your fork to your local machine
 1. `cd` into this repository's clone directory
 1. Set global userspace path: `qmk config user.overlay_dir="$(realpath .)"` -- you MUST be located in the cloned userspace location for this to work correctly
-    * This will be automatically detected if you've `cd`ed into your userspace repository, but the above makes your userspace available regardless of your shell location.
+    - This will be automatically detected if you've `cd`ed into your userspace repository, but the above makes your userspace available regardless of your shell location.
 1. Compile normally: `qmk compile -kb your_keyboard -km your_keymap` or `make your_keyboard:your_keymap`
 
 Alternatively, if you configured your build targets above, you can use `qmk userspace-compile` to build all of your userspace targets at once.
@@ -44,7 +52,8 @@ Alternatively, if you configured your build targets above, you can use `qmk user
 If you wish to point GitHub actions to a different repository, a different branch, or even a different keymap name, you can modify `.github/workflows/build_binaries.yml` to suit your needs.
 
 To override the `build` job, you can change the following parameters to use a different QMK repository or branch:
-```
+
+```cmake
     with:
       qmk_repo: qmk/qmk_firmware
       qmk_ref: master
