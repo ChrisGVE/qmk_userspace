@@ -104,10 +104,23 @@ enum custom_keycodes {
 #define RGB_MSE_G 0x26
 #define RGB_MSE_B 0x00
 
-// GAMING color - Red
-#define RGB_GMG_R 0xff
-#define RGB_GMG_G 0x00
-#define RGB_GMG_B 0x00
+// Windows color - 0x3fff82
+#define RGB_WIN_R 0x3f
+#define RGB_WIN_G 0xff
+#define RGB_WIN_B 0x82
+
+// Linux color - 0xffff00
+#define RGB_LNX_R 0xff
+#define RGB_LNX_G 0xff
+#define RGB_LNX_B 0x00
+
+// Gaming mode
+#ifdef RGBLIGHT_ENABLE
+  #define LGT_GMG_ON (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
+#endif
+#ifdef RGB_MATRIX_ENABLE
+  #define LGT_GMG_ON RGB_MATRIX_RAINBOW_BEACON
+#endif
 
 #define TAB_CTL CTL_T(KC_TAB)
 #define ADJUST MO(_ADJUST)

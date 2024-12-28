@@ -1,4 +1,6 @@
 #include "chrisgve.h"
+#include "action_layer.h"
+#include "rgblight.h"
 
 #ifndef DISABLE_USER_CODE
 
@@ -207,7 +209,7 @@ enum generic_layer_t {
 bool    caps_lock             = false;
 bool    def_layer             = true;
 uint8_t cur_layer             = _DEF_L;
-uint8_t current_default_layer = 0;
+uint8_t current_default_layer = _QWERTY_MAC;
   #ifdef MOUSEKEY_ENABLE
 bool mouse_layer = false;
   #endif
@@ -390,7 +392,7 @@ void reset_rgb(void) {
   rgb_matrix_disable_noeeprom();
     #endif
     #ifdef RGBLIGHT_ENABLE
-  rgblight_disable();
+  rgblight_disable_noeeprom();
     #endif
 }
 
@@ -426,8 +428,22 @@ void set_mse_rgb(void) {
   set_rgb(RGB_MSE_R, RGB_MSE_G, RGB_MSE_B);
 }
 
+void set_win_rgb(void) {
+  set_rgb(RGB_WIN_R, RGB_WIN_G, RGB_WIN_B);
+}
+
+void set_lnx_rgb(void) {
+  set_rgb(RGB_LNX_R, RGB_LNX_G, RGB_LNX_B);
+}
+
+void set_num_rgb(void) {
+  set_rgb(RGB_NUM_R, RGB_NUM_G, RGB_NUM_B);
+}
+
 void set_gmg_rgb(void) {
-  set_rgb(RGB_GMG_R, RGB_GMG_G, RGB_GMG_B);
+    #ifdef RGBLIGHT_ENABLE
+  rgblight_mode_noeeprom(LGT_GMG_ON);
+    #endif
 }
 
     #ifdef RGB_MATRIX_ENABLE
@@ -467,30 +483,65 @@ bool rgb_matrix_indicators_user(void) {
       #endif
     #endif
 
-bool led_update_user(led_t usb_led) {
-  caps_lock = usb_led.caps_lock;
-  if (usb_led.caps_lock) {
+void update_caps(void) {
+  if (caps_lock) {
     set_caps_rgb();
-  } else {
-    if (def_layer) {
-      reset_rgb();
+  } else if (mouse_layer) {
+    set_mse_rgb();
+  } else if (def_layer) {
+    switch (current_default_layer) {
+      case _QWERTY_MAC:
+        reset_rgb();
+        break;
+      case _QWERTY_WIN:
+        set_win_rgb();
+        break;
+      case _QWERTY_LINUX:
+        set_lnx_rgb();
+        break;
+      case _EX_MOUSE:
+        set_mse_rgb();
+        break;
+      default: //
+        break;
     }
   }
+}
+
+bool led_update_user(led_t led_state) {
+  if (caps_lock && !led_state.caps_lock && current_default_layer == _GAMING) set_gmg_rgb(); // reset gaming only if change
+  caps_lock = led_state.caps_lock;
+    #ifndef NO_RGB
+  update_caps();
+    #endif
   return true;
 }
   #endif
 
   #ifndef DISABLE_LAYER_TRACKING
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-  current_default_layer = get_highest_layer(state);
-    #ifndef NO_RGB
-  if (caps_lock) {
-    set_caps_rgb();
-  } else if (mouse_layer) {
-    set_mse_rgb();
-  } else {
+  if (layer_state_cmp(state, _QWERTY_MAC)) {
+    current_default_layer = _QWERTY_MAC;
     reset_rgb();
+  } else if (layer_state_cmp(state, _QWERTY_WIN)) {
+    current_default_layer = _QWERTY_WIN;
+    set_win_rgb();
+  } else if (layer_state_cmp(state, _QWERTY_LINUX)) {
+    current_default_layer = _QWERTY_LINUX;
+    set_lnx_rgb();
+  } else if (layer_state_cmp(state, _GAMING)) {
+    current_default_layer = _GAMING;
+    set_gmg_rgb();
+  } else if (layer_state_cmp(state, _EX_MOUSE)) {
+    current_default_layer = _EX_MOUSE;
+    set_mse_rgb();
+  } else if (layer_state_cmp(state, _NUM)) {
+    current_default_layer = _NUM;
+    set_num_rgb();
   }
+  def_layer = true;
+    #ifndef NO_RGB
+  update_caps();
     #endif
   // Board specific handling
   return default_layer_state_set_keymap(state);
@@ -498,6 +549,49 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
+    case _QWERTY_MAC:
+    #ifndef NO_RGB
+      reset_rgb();
+    #endif
+      cur_layer   = _DEF_L;
+      def_layer   = true;
+      mouse_layer = false;
+      break;
+    case _QWERTY_LINUX:
+    #ifndef NO_RGB
+      set_lnx_rgb();
+    #endif
+      cur_layer   = _DEF_L;
+      def_layer   = true;
+      mouse_layer = false;
+      break;
+    case _QWERTY_WIN:
+    #ifndef NO_RGB
+      set_win_rgb();
+    #endif
+      cur_layer   = _DEF_L;
+      def_layer   = true;
+      mouse_layer = false;
+      break;
+    case _NUM:
+    #ifndef NO_RGB
+      set_num_rgb();
+    #endif
+      cur_layer   = _NUM_L;
+      def_layer   = true;
+      mouse_layer = false;
+      break;
+    case _EX_MOUSE:
+    #ifndef NO_RGB
+      set_mse_rgb();
+    #endif
+      cur_layer   = _MSE_L;
+      def_layer   = false;
+      mouse_layer = true;
+    case _GAMING:
+      cur_layer = _GMG_L;
+      def_layer = true;
+      break;
     case _MAC_NAV_1:
     case _LINUX_NAV_1:
     case _WIN_NAV_1:
@@ -527,7 +621,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     #endif
       break;
     case _MOUSE:
-    case _EX_MOUSE:
       cur_layer   = _MSE_L;
       def_layer   = false;
       mouse_layer = true;
@@ -535,23 +628,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       set_mse_rgb();
     #endif
       break;
-    case _GAMING:
-      cur_layer = _GMG_L;
-      def_layer = false;
-    #ifndef NO_RGB
-      set_gmg_rgb();
-    #endif
-      break;
     default:
       cur_layer   = _DEF_L;
       def_layer   = true;
       mouse_layer = false;
     #ifndef NO_RGB
-      if (caps_lock) {
-        set_caps_rgb();
-      } else {
-        reset_rgb();
-      }
+      update_caps();
     #endif
   }
 
