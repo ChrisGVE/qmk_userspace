@@ -1,55 +1,41 @@
 /* Copyright 2021 Christian C. Berclaz
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 2 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
-enum preonic_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-  _DIR,
-  _FULL_DIR,
-  _FN,
-  _NUM
-};
+enum preonic_layers { _QWERTY, _LOWER, _RAISE, _ADJUST, _DIR, _FULL_DIR, _FN, _NUM };
 
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  FN,
-  NUM
-};
+enum preonic_keycodes { QWERTY = SAFE_RANGE, LOWER, RAISE, FN, NUM };
 
-#define D_DIR       LT(_DIR, KC_D)
-#define QUT_SFT     RSFT_T(KC_QUOT)
-#define F_WORD      A(KC_RIGHT)
-#define ESC_CTL     CTL_T(KC_ESC)
-#define CPS_CTL     CTL_T(KC_CAPS)
-#define B_WORD      A(KC_LEFT)
-#define S_SHIFT     SFT_T(KC_S)
-#define A_SHIFT     SFT_T(KC_A)
-#define FL_DIR      MO(_FULL_DIR)
-#define FN_NUM      LT(_FN, KC_NO)
-#define MENU        MO(_ADJUST)
-#define L_MOD       LT(_FN, KC_SPC)
-#define R_MOD       RCTL_T(KC_SPC)
+#define D_DIR LT(_DIR, KC_D)
+#define QUT_SFT RSFT_T(KC_QUOT)
+#define F_WORD A(KC_RIGHT)
+#define ESC_CTL CTL_T(KC_ESC)
+#define CPS_CTL CTL_T(KC_CAPS)
+#define B_WORD A(KC_LEFT)
+#define S_SHIFT SFT_T(KC_S)
+#define A_SHIFT SFT_T(KC_A)
+#define FL_DIR MO(_FULL_DIR)
+#define FN_NUM LT(_FN, KC_NO)
+#define MENU MO(_ADJUST)
+#define L_MOD LT(_FN, KC_SPC)
+#define R_MOD RCTL_T(KC_SPC)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -221,44 +207,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+// clang-format on
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case LT(_FN,KC_NO):
-            if (record->tap.count == 2 && record->event.pressed) {
-                layer_on(_NUM);
-                return false;
-            }
-            return true; // Continue with unmatched keycodes
-            break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
+    case LT(_FN, KC_NO):
+      if (record->tap.count == 2 && record->event.pressed) {
+        layer_on(_NUM);
+        return false;
       }
-    return true;
+      return true; // Continue with unmatched keycodes
+      break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+  }
+  return true;
 };
 
-bool muse_mode = false;
-uint8_t last_muse_note = 0;
-uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
+bool     muse_mode      = false;
+uint8_t  last_muse_note = 0;
+uint16_t muse_counter   = 0;
+uint8_t  muse_offset    = 70;
+uint16_t muse_tempo     = 50;
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
@@ -270,9 +258,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
     } else {
       if (clockwise) {
-        muse_tempo+=1;
+        muse_tempo += 1;
       } else {
-        muse_tempo-=1;
+        muse_tempo -= 1;
       }
     }
   } else {
@@ -282,47 +270,46 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_PGUP);
     }
   }
-    return true;
+  return true;
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-        case 0:
-            if (active) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
-            }
-            break;
-        case 1:
-            if (active) {
-                muse_mode = true;
-            } else {
-                muse_mode = false;
-            }
-    }
-    return true;
+  switch (index) {
+    case 0:
+      if (active) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
+      }
+      break;
+    case 1:
+      if (active) {
+        muse_mode = true;
+      } else {
+        muse_mode = false;
+      }
+  }
+  return true;
 }
-
 
 void matrix_scan_user(void) {
 #ifdef AUDIO_ENABLE
-    if (muse_mode) {
-        if (muse_counter == 0) {
-            uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
-            if (muse_note != last_muse_note) {
-                stop_note(compute_freq_for_midi_note(last_muse_note));
-                play_note(compute_freq_for_midi_note(muse_note), 0xF);
-                last_muse_note = muse_note;
-            }
-        }
-        muse_counter = (muse_counter + 1) % muse_tempo;
-    } else {
-        if (muse_counter) {
-            stop_all_notes();
-            muse_counter = 0;
-        }
+  if (muse_mode) {
+    if (muse_counter == 0) {
+      uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
+      if (muse_note != last_muse_note) {
+        stop_note(compute_freq_for_midi_note(last_muse_note));
+        play_note(compute_freq_for_midi_note(muse_note), 0xF);
+        last_muse_note = muse_note;
+      }
     }
+    muse_counter = (muse_counter + 1) % muse_tempo;
+  } else {
+    if (muse_counter) {
+      stop_all_notes();
+      muse_counter = 0;
+    }
+  }
 #endif
 }
 
