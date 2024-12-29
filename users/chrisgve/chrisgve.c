@@ -381,68 +381,57 @@ tap_dance_action_t tap_dance_actions[] = {
 
   #ifndef NO_RGB
 
-void disable_rgb(void) {
-    #ifdef RBGLIGHT_ENABLE
-  rgblight_disable();
-    #endif
-}
-
-void reset_rgb(void) {
-    #ifdef RGB_MATRIX_ENABLE
-  rgb_matrix_disable_noeeprom();
-    #endif
-    #ifdef RGBLIGHT_ENABLE
-  rgblight_disable_noeeprom();
-    #endif
-}
-
 void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
     #ifdef RGB_MATRIX_ENABLE
-  rgb_matrix_enable_noeeprom();
   rgb_matrix_set_color_all(red, green, blue);
     #endif
     #ifdef RGBLIGHT_ENABLE
-  rgblight_enable_noeeprom();
-  rgblight_mode_noeeprom(1);
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
   rgblight_setrgb(red, green, blue);
     #endif
 }
 
 void set_nav_1_rgb(void) {
-  set_rgb(RGB_NAV1_R, RGB_NAV1_G, RGB_NAV1_B);
+  set_rgb(RGB_NAV1);
 }
 
 void set_nav_2_rgb(void) {
-  set_rgb(RGB_NAV2_R, RGB_NAV2_G, RGB_NAV2_B);
+  set_rgb(RGB_NAV2);
 }
 
 void set_caps_rgb(void) {
-  set_rgb(RGB_CAPS_R, RGB_CAPS_G, RGB_CAPS_B); // Warm white
+  set_rgb(RGB_CAPS); // Warm white
 }
 
 void set_adj_rgb(void) {
-  set_rgb(RGB_ADJ_R, RGB_ADJ_G, RGB_ADJ_B);
+  set_rgb(RGB_ADJ);
 }
 
 void set_mse_rgb(void) {
-  set_rgb(RGB_MSE_R, RGB_MSE_G, RGB_MSE_B);
+  set_rgb(RGB_MSE);
 }
 
 void set_win_rgb(void) {
-  set_rgb(RGB_WIN_R, RGB_WIN_G, RGB_WIN_B);
+  set_rgb(RGB_WIN);
 }
 
 void set_lnx_rgb(void) {
-  set_rgb(RGB_LNX_R, RGB_LNX_G, RGB_LNX_B);
+  set_rgb(RGB_LNX);
 }
 
 void set_num_rgb(void) {
-  set_rgb(RGB_NUM_R, RGB_NUM_G, RGB_NUM_B);
+  set_rgb(RGB_NUM);
+}
+
+void rgb_off(void) {
+  set_rgb(RGB_OFF);
 }
 
 void set_gmg_rgb(void) {
     #ifdef RGBLIGHT_ENABLE
+  rgblight_enable_noeeprom();
   rgblight_mode_noeeprom(LGT_GMG_ON);
+  rgblight_sethsv_noeeprom(255, 255, 255);
     #endif
 }
 
@@ -483,15 +472,16 @@ bool rgb_matrix_indicators_user(void) {
       #endif
     #endif
 
-void update_caps(void) {
-  if (caps_lock) {
+void update_rgb(void) {
+  if (current_default_layer == _GAMING) return; // if we are in gaming mode we do nothing
+  if (caps_lock && def_layer) {
     set_caps_rgb();
   } else if (mouse_layer) {
     set_mse_rgb();
   } else if (def_layer) {
     switch (current_default_layer) {
       case _QWERTY_MAC:
-        reset_rgb();
+        rgb_off();
         break;
       case _QWERTY_WIN:
         set_win_rgb();
@@ -499,20 +489,35 @@ void update_caps(void) {
       case _QWERTY_LINUX:
         set_lnx_rgb();
         break;
-      case _EX_MOUSE:
-        set_mse_rgb();
+      case _NUM:
+        set_num_rgb();
         break;
-      default: //
+      default: // We don't change the gaming layer
+        break;
+    }
+  } else {
+    switch (cur_layer) {
+      case _NAV1_L:
+        set_nav_1_rgb();
+        break;
+      case _NAV2_L:
+        set_nav_2_rgb();
+        break;
+      case _ADJ_L:
+        set_adj_rgb();
+        break;
+      default:
         break;
     }
   }
 }
 
 bool led_update_user(led_t led_state) {
-  if (caps_lock && !led_state.caps_lock && current_default_layer == _GAMING) set_gmg_rgb(); // reset gaming only if change
+  if (caps_lock == led_state.caps_lock) return false; // no change, thus nothing to do
   caps_lock = led_state.caps_lock;
+  if (current_default_layer == _GAMING) return false; // if in gaming mode we do nothing
     #ifndef NO_RGB
-  update_caps();
+  update_rgb();
     #endif
   return true;
 }
@@ -520,29 +525,40 @@ bool led_update_user(led_t led_state) {
 
   #ifndef DISABLE_LAYER_TRACKING
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-  if (layer_state_cmp(state, _QWERTY_MAC)) {
-    current_default_layer = _QWERTY_MAC;
-    reset_rgb();
-  } else if (layer_state_cmp(state, _QWERTY_WIN)) {
-    current_default_layer = _QWERTY_WIN;
-    set_win_rgb();
-  } else if (layer_state_cmp(state, _QWERTY_LINUX)) {
-    current_default_layer = _QWERTY_LINUX;
-    set_lnx_rgb();
-  } else if (layer_state_cmp(state, _GAMING)) {
-    current_default_layer = _GAMING;
-    set_gmg_rgb();
-  } else if (layer_state_cmp(state, _EX_MOUSE)) {
-    current_default_layer = _EX_MOUSE;
-    set_mse_rgb();
-  } else if (layer_state_cmp(state, _NUM)) {
-    current_default_layer = _NUM;
-    set_num_rgb();
-  }
-  def_layer = true;
+  if (!layer_state_cmp(state, current_default_layer)) {
+    if (layer_state_cmp(state, _QWERTY_MAC)) {
+      current_default_layer = _QWERTY_MAC;
     #ifndef NO_RGB
-  update_caps();
+      rgb_off();
     #endif
+    } else if (layer_state_cmp(state, _QWERTY_WIN)) {
+      current_default_layer = _QWERTY_WIN;
+    #ifndef NO_RGB
+      set_win_rgb();
+    #endif
+    } else if (layer_state_cmp(state, _QWERTY_LINUX)) {
+      current_default_layer = _QWERTY_LINUX;
+    #ifndef NO_RGB
+      set_lnx_rgb();
+    #endif
+    } else if (layer_state_cmp(state, _GAMING)) {
+      current_default_layer = _GAMING;
+    #ifndef NO_RGB
+      set_gmg_rgb();
+    #endif
+    } else if (layer_state_cmp(state, _EX_MOUSE)) {
+      current_default_layer = _EX_MOUSE;
+    #ifndef NO_RGB
+      set_mse_rgb();
+    #endif
+    } else if (layer_state_cmp(state, _NUM)) {
+      current_default_layer = _NUM;
+    #ifndef NO_RGB
+      set_num_rgb();
+    #endif
+    }
+    def_layer = true;
+  }
   // Board specific handling
   return default_layer_state_set_keymap(state);
 }
@@ -550,43 +566,28 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _QWERTY_MAC:
-    #ifndef NO_RGB
-      reset_rgb();
-    #endif
       cur_layer   = _DEF_L;
       def_layer   = true;
       mouse_layer = false;
       break;
     case _QWERTY_LINUX:
-    #ifndef NO_RGB
-      set_lnx_rgb();
-    #endif
       cur_layer   = _DEF_L;
       def_layer   = true;
       mouse_layer = false;
       break;
     case _QWERTY_WIN:
-    #ifndef NO_RGB
-      set_win_rgb();
-    #endif
       cur_layer   = _DEF_L;
       def_layer   = true;
       mouse_layer = false;
       break;
     case _NUM:
-    #ifndef NO_RGB
-      set_num_rgb();
-    #endif
       cur_layer   = _NUM_L;
       def_layer   = true;
       mouse_layer = false;
       break;
     case _EX_MOUSE:
-    #ifndef NO_RGB
-      set_mse_rgb();
-    #endif
       cur_layer   = _MSE_L;
-      def_layer   = false;
+      def_layer   = true;
       mouse_layer = true;
     case _GAMING:
       cur_layer = _GMG_L;
@@ -598,9 +599,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       cur_layer   = _NAV1_L;
       def_layer   = false;
       mouse_layer = false;
-    #ifndef NO_RGB
-      set_nav_1_rgb();
-    #endif
       break;
     case _MAC_NAV_2:
     case _LINUX_NAV_2:
@@ -608,35 +606,26 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       cur_layer   = _NAV2_L;
       def_layer   = false;
       mouse_layer = false;
-    #ifndef NO_RGB
-      set_nav_2_rgb();
-    #endif
       break;
     case _ADJUST:
       cur_layer   = _ADJ_L;
       def_layer   = false;
       mouse_layer = false;
-    #ifndef NO_RGB
-      set_adj_rgb();
-    #endif
       break;
     case _MOUSE:
       cur_layer   = _MSE_L;
       def_layer   = false;
       mouse_layer = true;
-    #ifndef NO_RGB
-      set_mse_rgb();
-    #endif
       break;
     default:
       cur_layer   = _DEF_L;
       def_layer   = true;
       mouse_layer = false;
-    #ifndef NO_RGB
-      update_caps();
-    #endif
   }
 
+    #ifndef NO_RGB
+  update_rgb();
+    #endif
   // Board specific handling
   return layer_state_set_keymap(state);
 }
@@ -646,14 +635,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Keyboard post init
 void keyboard_post_init_user(void) {
   // Read the user config from EEPROM
-  user_config.raw = eeconfig_read_user();
+  user_config.raw       = eeconfig_read_user();
+  current_default_layer = user_config.default_layer;
 
     // Init RGB
-    #ifdef RGBLIGHT_DISABLE
-  disable_rgb();
-  reset_rgb();
-    #else
-  reset_rgb();
+    #ifndef NO_RGB
+  update_rgb();
     #endif
 
   // Call specific board initialization

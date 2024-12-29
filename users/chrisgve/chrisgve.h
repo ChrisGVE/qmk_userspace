@@ -75,50 +75,35 @@ enum custom_keycodes {
 
 // RGB standard colors
 // CAPS LOCK color  - Warm white
-#define RGB_CAPS_R 0xe6
-#define RGB_CAPS_G 0x87
-#define RGB_CAPS_B 0x19
+#define RGB_CAPS RGB_CORAL
 
 // NAV 1 color - Blue
-#define RGB_NAV1_R 0x33
-#define RGB_NAV1_G 0x66
-#define RGB_NAV1_B 0xff
+#define RGB_NAV1 RGB_TEAL
 
 // NAV 2 color - Purple
-#define RGB_NAV2_R 0x99
-#define RGB_NAV2_G 0x33
-#define RGB_NAV2_B 0xff
+#define RGB_NAV2 RGB_PURPLE
 
-// ADJ color  - Green
-#define RGB_ADJ_R 0x33
-#define RGB_ADJ_G 0xcc
-#define RGB_ADJ_B 0x33
+// ADJ color  - Green #33cc33
+#define RGB_ADJ RGB_CHARTREUSE
 
 // NUM color  - Cyan
-#define RGB_NUM_R 0x00
-#define RGB_NUM_G 0xff
-#define RGB_NUM_B 0xff
+#define RGB_NUM RGB_CYAN
 
 // MOUSE color - Orange
-#define RGB_MSE_R 0xff
-#define RGB_MSE_G 0x26
-#define RGB_MSE_B 0x00
+#define RGB_MSE RGB_ORANGE
 
 // Windows color - 0x3fff82
-#define RGB_WIN_R 0x3f
-#define RGB_WIN_G 0xff
-#define RGB_WIN_B 0x82
+#define RGB_WIN RGB_BLUE
 
 // Linux color - 0xffff00
-#define RGB_LNX_R 0xff
-#define RGB_LNX_G 0xff
-#define RGB_LNX_B 0x00
+#define RGB_LNX RGB_GOLD
 
 // Gaming mode
-#ifdef RGBLIGHT_ENABLE
-  #define LGT_GMG_ON (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
-#endif
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGBLIGHT_ENABLE)
+  #if defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL)
+    #define LGT_GMG_ON (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
+  #endif
+#elif defined(RGB_MATRIX_ENABLE)
   #define LGT_GMG_ON RGB_MATRIX_RAINBOW_BEACON
 #endif
 
@@ -674,6 +659,7 @@ enum tap_dance_codes {
 #define DF_MAC DF(_QWERTY_MAC)
 #define DF_WIN DF(_QWERTY_WIN)
 #define DF_LNX DF(_QWERTY_LINUX)
+#define DF_NUM DF(_NUM)
 #define DF_GMG DF(_GAMING)
 
 // Mac only definitions
