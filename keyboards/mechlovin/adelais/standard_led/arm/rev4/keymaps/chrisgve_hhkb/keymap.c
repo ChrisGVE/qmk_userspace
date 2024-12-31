@@ -29,8 +29,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_QWERTY_MAC] = LAYOUT_alice_split_bs(
-     KC_PGUP, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
-     KC_PGDN, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
+     KC_PGUP, ESC_GLB, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
+     KC_PGDN, TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
      KC_END,  KC_LCTL, A_MOUSE, KC_S,    M_NAV_1, M_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,  R_SHIFT, KC_SLSH,
               _______,          KC_LGUI,          SPC_RSE,          KC_LALT,                  SPC_RSE,          KC_RGUI,                            _______
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY_LINUX] = LAYOUT_alice_split_bs(
      KC_PGUP, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
-     KC_PGDN, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
+     KC_PGDN, TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
      KC_END,  KC_LCTL, A_MOUSE, KC_S,    L_NAV_1, L_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,  R_SHIFT, KC_SLSH,
               _______,          KC_LALT,          SPC_RSE,          KC_LGUI,                  SPC_RSE,          KC_RALT,                            _______
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_WIN] = LAYOUT_alice_split_bs(
      KC_PGUP, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
      KC_PGDN, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-     KC_END,  KC_LCTL, A_MOUSE, KC_S,    W_NAV_1, W_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+     KC_END,  KC_LCTL, KC_A,    KC_S,    W_NAV_1, W_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,  KC_RSFT, KC_SLSH,
               _______,          KC_LALT,          SPC_RSE,          KC_RGUI,                  SPC_RSE,          KC_RALT,                            _______
     ),
@@ -110,8 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ADJUST] = LAYOUT_alice_split_bs(
      _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
-     _______, QK_BOOT, MAC_SWT, _______, WIN_SWT, _______, _______,                  _______, _______, _______, _______, _______, WM_UP,   _______, KC_DEL,
-     _______, KC_CAPS, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______,                  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, WM_LEFT, WM_RGHT, _______,
+     _______, QK_BOOT, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, WM_UP,   _______, KC_DEL,
+     _______, KC_CAPS, DF_M_P,  DF_L_P,  DF_W_P,  DF_G_P,  KC_GLB,                   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, WM_LEFT, WM_RGHT, _______,
               _______,          DF_MAC,  DF_LNX,  DF_WIN,  DF_GMG,  _______,         _______, KC_MUTE, _______, _______, _______, _______, _______, WM_DOWN,
               _______,          _______,          KC_MPLY,          KC_MPLY,                  KC_MPLY,          _______,                            _______
     ),

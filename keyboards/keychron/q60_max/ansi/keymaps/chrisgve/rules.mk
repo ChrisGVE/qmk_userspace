@@ -1,8 +1,5 @@
 USER_NAME := chrisgve
 
-LTO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 
 SHIFT_ENABLE = yes
-# RBGLIGHT_ENABLE = yes
-

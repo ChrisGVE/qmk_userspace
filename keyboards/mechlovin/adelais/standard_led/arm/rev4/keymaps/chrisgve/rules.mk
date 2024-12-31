@@ -1,9 +1,12 @@
-USER_NAME := chrisgve
+USER_NAME = chrisgve
 
-LTO_ENABLE = yes
-MOUSEKEY_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 
-SLEEP_LED_ENABLE = no
 SHIFT_ENABLE = yes
 
+# Enable the KC_GLOBE key
+KEYBOARD_SHARED_EP = yes
+
+RGBLIGHT_ENABLE = yes
+
+SLEEP_LED_ENABLE = no

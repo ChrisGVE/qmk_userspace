@@ -1,8 +1,10 @@
-LTO_ENABLE = yes
-
-USER_NAME := chrisgve
+USER_NAME = chrisgve
 
 TAP_DANCE_ENABLE = yes
-RGBLIGHT_ENABLE = yes
 
 SHIFT_ENABLE = yes
+
+# Enable the KC_GLOBE key
+KEYBOARD_SHARED_EP = yes
+
+RGBLIGHT_ENABLE = yes
