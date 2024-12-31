@@ -15,3 +15,5 @@ compile_commands.json
 .clangd/
 .cache/
 .ipynb_checkpoints
+log
+.virtual_documents
