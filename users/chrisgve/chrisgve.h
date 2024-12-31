@@ -75,28 +75,28 @@ enum custom_keycodes {
 
 // RGB standard colors
 // CAPS LOCK color  - Warm white
-#define RGB_CAPS RGB_CORAL
+#define HSV_CAPS 23, 227, 230 // HSV_CORAL
 
 // NAV 1 color - Blue
-#define RGB_NAV1 RGB_TEAL
+#define HSV_NAV1 HSV_TEAL // 181, 204, 255 // HSV_TEAL
 
 // NAV 2 color - Purple
-#define RGB_NAV2 RGB_PURPLE
+#define HSV_NAV2 191, 204, 255 // HSV_PURPLE
 
 // ADJ color  - Green #33cc33
-#define RGB_ADJ RGB_CHARTREUSE
+#define HSV_ADJ 85, 191, 204 // HSV_CHARTREUSE
 
 // NUM color  - Cyan
-#define RGB_NUM RGB_CYAN
+#define HSV_NUM HSV_CYAN
 
 // MOUSE color - Orange
-#define RGB_MSE RGB_ORANGE
+#define HSV_MSE 6, 255, 255 // HSV_ORANGE
 
 // Windows color - 0x3fff82
-#define RGB_WIN RGB_BLUE
+#define HSV_WIN HSV_BLUE
 
 // Linux color - 0xffff00
-#define RGB_LNX RGB_GOLD
+#define HSV_LNX HSV_GOLD
 
 // Gaming mode
 #if defined(RGBLIGHT_ENABLE)
@@ -632,9 +632,14 @@ enum tap_dance_codes {
   #ifdef MOUSEKEY_ENABLE
     #define SFT_MSE TD(TD_LSHIFT_MOUSE)
     #define TG_MSE TG(_EX_MOUSE)
+  #else
+    #define SFT_MSE KC_LSFT
+    #define TG_MSE KC_LSFT
   #endif
   #ifdef KEYBOARD_SHARED_EP
     #define ESC_GLB TD(TD_ESC_GLOBE)
+  #else
+    #define ESC_GLB KC_ESC
   #endif
   #define CPS_CTL TD(TD_CTRL_CAPS)
   #define TG_NUM TG(_NUM)
