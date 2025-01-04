@@ -9,3 +9,4 @@ BACKLIGHT_ENABLE = no
 # Enable the KC_GLOBE key
 KEYBOARD_SHARED_EP = yes
 
+LAYOUT = 60_tsangan_hhkb
