@@ -14,6 +14,7 @@ qmk compile --parallel 0 -kb emery65 -km chrisgve >>log/emery65.log 2>&1
 qmk compile --parallel 0 -kb hineybush/h60 -km chrisgve >>log/h60.log 2>&1
 qmk compile --parallel 0 -kb kbdfans/baguette66/rgb -km chrisgve >>log/baguette66.log 2>&1
 qmk compile --parallel 0 -kb kbdfans/kbd67/rev2 -km chrisgve >>log/kbd67.log 2>&1
+qmk compile --parallel 0 -kb kbdfans/kbdpad/mk2 -km chrisgve >>log/kbdpad.log 2>&1
 qmk compile --parallel 0 -kb kbdfans/odin/soldered -km chrisgve >>log/odin.log 2>&1
 qmk compile --parallel 0 -kb keebsforall/freebirdnp/pro -km chrisgve >>log/freebirdnp.log 2>&1
 qmk compile --parallel 0 -kb keebsforall/freebirdtkl -km chrisgve >>log/freebirdtkl.log 2>&1
@@ -21,6 +22,7 @@ qmk compile --parallel 0 -kb kopibeng/mnk65_stm32 -km chrisgve >>log/mnk65.log 2
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/apm32f103 -km chrisgve >>log/adelais_apm32f103_chrisgve.log 2>&1
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/apm32f103 -km chrisgve_hhkb >>log/adelais_apm32f103_chrisgve_hhkb.log 2>&1
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/stm32f303 -km chrisgve_hhkb >>log/adelais_stm32f303_chrisgve_hhkb.log 2>&1
+qmk compile --parallel 0 -kb mechlovin/zed60 -km chrisgve_hhkb >>log/zed60.log 2>&1
 qmk compile --parallel 0 -kb mode/m65s -km chrisgve >>log/m65s.log 2>&1
 qmk compile --parallel 0 -kb quarkeys/z60/solder -km chrisgve >>log/z60.log 2>&1
 qmk compile --parallel 0 -kb windstudio/wind_x/r1 -km chrisgve >>log/wind_x.log 2>&1
