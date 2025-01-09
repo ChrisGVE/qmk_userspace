@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______,
         QK_BOOT, MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, WM_UP,   _______, KC_DEL,              _______, _______, _______,
         KC_CAPS, DF_M_P,  DF_L_P,  DF_W_P,  DF_G_P,  KC_GLB,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, WM_LEFT, WM_RGHT,          _______,
-        _______,          DF_MAC,  DF_LNX,  DF_WIN,  DF_GMG,  _______, _______, KC_MUTE, _______, _______, WM_DOWN, _______, _______,                      KC_VOLU,
+        _______,          DF_MAC,  DF_LNX,  DF_WIN,  DF_GMG,  _______, _______, KC_MUTE, _______, _______, WM_DOWN, KC_MPLY, _______,                      KC_VOLU,
         _______, _______, _______,                                     KC_MPLY,                            _______, _______, _______,             KC_MPRV, KC_VOLD, KC_MNXT
     ),
 
