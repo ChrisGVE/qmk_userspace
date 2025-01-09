@@ -4,6 +4,21 @@ LTO_ENABLE = yes
 SHIFT_ENABLE = yes
 STENO_ENABLE = no
 MIDI_ENABLE = no
+TAP_DANCE_ENABLE = yes
+NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+
+# Both are needed for CAPS_WORD since shift cannot be used
+CAPS_WORD_ENABLE = yes
+
+ifeq ($(strip $(COMBO_ENABLE)), no)
+	COMBO_ENABLE = no
+else
+	COMBO_ENABLE = yes
+endif
+
+# Enable the KC_GLOBE key
+KEYBOARD_SHARED_EP = yes
 
 ifeq ($(strip $(DEBUG)), yes)
 	OPT_DEFS += -DDEBUG

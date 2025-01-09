@@ -1,5 +1,1 @@
 USER_NAME := chrisgve
-
-SHIFT_ENABLE = yes
-TAP_DANCE_ENABLE = yes
-KEYBOARD_SHARED_EP = yes

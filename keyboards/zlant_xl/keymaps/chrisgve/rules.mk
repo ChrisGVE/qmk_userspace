@@ -1,5 +1,5 @@
 USER_NAME := chrisgve
 
-TAP_DANCE_ENABLE = yes
-
 MODIFIERS_ENABLE = yes
+
+COMBO_ENABLE = no
