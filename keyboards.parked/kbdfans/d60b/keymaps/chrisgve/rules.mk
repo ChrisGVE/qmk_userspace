@@ -12,3 +12,7 @@ SRC += chrisgve.c
 RGB_MATRIX_ENABLE = no
 MOUSEKEY_ENABLE = yes
 # TAP_DANCE_ENABLE = yes
+
+# Both are needed for CAPS_WORD since shift cannot be used
+CAPS_WORD_ENABLE = yes
+COMBO_ENABLE = yes
