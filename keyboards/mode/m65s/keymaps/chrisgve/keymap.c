@@ -19,6 +19,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "chrisgve.h"
 
+#ifdef CAPS_WORD_ENABLE
+  #ifdef COMBO_ENABLE
+const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
+const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
+combo_t                key_combos[]    = {
+    COMBO(word_caps_gui, QK_CAPS_WORD_TOGGLE),
+    COMBO(word_caps_alt, QK_CAPS_WORD_TOGGLE),
+};
+  #endif
+#endif
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_GAMING] = LAYOUT_65_ansi_blocker_tsangan_split_bs(

@@ -18,6 +18,17 @@
 
 #include "chrisgve.h"
 
+#ifdef CAPS_WORD_ENABLE
+  #ifdef COMBO_ENABLE
+const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
+const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
+combo_t                key_combos[]    = {
+    COMBO(word_caps_gui, QK_CAPS_WORD_TOGGLE),
+    COMBO(word_caps_alt, QK_CAPS_WORD_TOGGLE),
+};
+  #endif
+#endif
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them

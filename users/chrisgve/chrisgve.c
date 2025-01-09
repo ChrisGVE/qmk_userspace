@@ -182,6 +182,16 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 }
   #endif
 
+  #ifdef WORD_CAPS_ENABLE
+    #ifdef COMBO_ENABLE
+const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
+const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
+combo_t                key_combos[]    = {
+    COMBO(word_caps_gui, KC_CAPS_WORD_TOGGLE),
+    COMBO(word_caps_alt, KC_CAPS_WORD_TOGGLE),
+};
+    #endif
+  #endif
   // EEPROM user configuration
   #ifndef DISABLE_POST_INIT
 typedef union {
@@ -212,6 +222,7 @@ enum generic_layer_t {
 };
 
 bool    caps_lock             = false;
+bool    caps_word             = false;
 bool    def_layer             = true;
 uint8_t cur_layer             = _DEF_L;
 uint8_t current_default_layer = _QWERTY_MAC;
@@ -445,7 +456,7 @@ void set_gmg_hsv(void) {
 
 void update_hsv(void) {
   if (current_default_layer == _GAMING) return; // if we are in gaming mode we do nothing
-  if (caps_lock && def_layer) {
+  if ((caps_lock || caps_word) && def_layer) {
     set_caps_hsv();
   } else if (mouse_layer) {
     set_mse_hsv();
@@ -480,6 +491,16 @@ void update_hsv(void) {
       default:
         break;
     }
+  }
+}
+
+void caps_word_set_user(bool active) {
+  if (caps_word == active) return;
+  caps_word = active;
+  if (current_default_layer != _GAMING) {
+    #ifndef NO_RGB
+    update_hsv();
+    #endif
   }
 }
 
