@@ -12,6 +12,7 @@ qmk compile --parallel 0 -kb cannonkeys/savage65 -km chrisgve >>log/savage65.log
 qmk compile --parallel 0 -kb dz60 -km chrisgve >>log/dz60.log 2>&1
 qmk compile --parallel 0 -kb dztech/dz60rgb_wkl/v2_1 -km chrisgve >>log/dz60rgb_wkl.log 2>&1
 qmk compile --parallel 0 -kb dztech/dz65rgb/v3 -km chrisgve >>log/dz65rgb.log 2>&1
+qmk compile --parallel 0 -kb dztech/og60 -km chrisgve >>log/tofu60.log 2>&1
 qmk compile --parallel 0 -kb emery65 -km chrisgve >>log/emery65.log 2>&1
 qmk compile --parallel 0 -kb hineybush/h60 -km chrisgve >>log/h60.log 2>&1
 qmk compile --parallel 0 -kb kbdfans/baguette66/rgb -km chrisgve >>log/baguette66.log 2>&1
