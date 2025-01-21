@@ -494,43 +494,46 @@ void update_hsv(void) {
   }
 }
 
+  #endif
+
+bool update_indicator(void) {
+  #ifndef NO_RGB
+  update_hsv();
+  #endif
+  #ifdef LED_CAPS_LOCK_PIN
+  bool state = caps_lock | caps_word;
+  gpio_write_pin(LED_CAPS_LOCK_PIN, state);
+  #endif
+  return true;
+}
+
+  #ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_user(void) {
+  if (!rgb_matrix_indicators_keymap()) {
+    return false;
+  }
+  bool caps_lock_host = host_keyboard_led_state().caps_lock;
+  if (caps_lock == caps_lock_host) return false; // no change, thus nothing to do
+  caps_lock = caps_lock_host;
+  if (current_default_layer == _GAMING) return false; // if in gaming mode do nothing
+  return update_indicator();
+}
+  #endif
+
+bool led_update_user(led_t led_state) {
+  if (caps_lock == led_state.caps_lock) return false; // no change, thus nothing to do
+  caps_lock = led_state.caps_lock;
+  if (current_default_layer == _GAMING) return false; // if in gaming mode do nothing
+  return update_indicator();
+}
+
 void caps_word_set_user(bool active) {
   if (caps_word == active) return;
   caps_word = active;
   if (current_default_layer != _GAMING) {
-    #ifndef NO_RGB
-    update_hsv();
-    #endif
+    update_indicator();
   }
 }
-
-bool update_indicator(bool new_caps_lock) {
-  if (caps_lock == new_caps_lock) return false; // no change, thus nothing to do
-  caps_lock = new_caps_lock;
-  if (current_default_layer == _GAMING) return false; // if in gaming mode do nothing
-    #ifndef NO_RGB
-  update_hsv();
-    #endif
-  return true;
-}
-
-    #ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_user(void) {
-  dprint("rgb_matrix_indicators_user");
-  if (!rgb_matrix_indicators_keymap()) {
-    return false;
-  }
-  return update_indicator(host_keyboard_led_state().caps_lock);
-}
-    #endif
-
-    #ifdef RGBLIGHT_ENABLE
-bool led_update_user(led_t led_state) {
-  dprint("led_update_user");
-  return update_indicator(led_state.caps_lock);
-}
-    #endif
-  #endif
 
   #ifndef DISABLE_LAYER_TRACKING
 layer_state_t default_layer_state_set_user(layer_state_t state) {
@@ -649,9 +652,9 @@ void keyboard_post_init_user(void) {
   current_default_layer = user_config.default_layer;
 
     #ifdef DEBUG
-  debug_enable = true;
-      /* debug_matrix   = true; */
-      /* debug_keyboard = true; */
+  debug_enable   = true;
+  debug_matrix   = true;
+  debug_keyboard = true;
       #ifdef MOUSEKEY_ENABLE
         /* debug_mouse = true; */
       #endif

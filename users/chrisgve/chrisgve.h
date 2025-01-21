@@ -119,6 +119,7 @@ enum custom_keycodes {
 #define A_SHIFT SFT_T(KC_A)
 #define R_SHIFT RSFT_T(KC_BSLS)
 #define TAB_HYP HYPR_T(KC_TAB)
+#define BPC_MEH MEH_T(KC_BSPC)
 #define QUT_SFT RSFT_T(KC_QUOT)
 #define GUI_BSL RGUI_T(KC_BSLS)
 #define ALT_BSL RALT_T(KC_BSLS)
