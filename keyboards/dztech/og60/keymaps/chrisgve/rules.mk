@@ -1,2 +1,1 @@
 USER_NAME = chrisgve
-BACKLIGHT_ENABLE = no
