@@ -1,4 +1,6 @@
 #!/bin/sh
+rm log/*
+
 qmk config set user.qmk_home=/Users/chris/dev/Keyboard/qmk/qmk_keychron
 qmk compile --parallel 0 -kb keychron/q60_max/ansi -km chrisgve >>log/q60_max.log 2>&1
 
@@ -27,3 +29,5 @@ qmk compile --parallel 0 -kb mode/m65s -km chrisgve >>log/m65s.log 2>&1
 qmk compile --parallel 0 -kb quarkeys/z60/solder -km chrisgve >>log/z60.log 2>&1
 qmk compile --parallel 0 -kb windstudio/wind_x/r1 -km chrisgve >>log/wind_x.log 2>&1
 qmk compile --parallel 0 -kb zlant_xl -km chrisgve >>log/zlant_xl.log 2>&1
+
+rg -i error log
