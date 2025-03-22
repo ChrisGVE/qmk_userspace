@@ -8,9 +8,7 @@
   #include "rgb_matrix.h"
 #endif
 
-#ifdef DEBUG
-  #include "print.h"
-#endif
+#include "print.h"
 
 #ifndef DISABLE_USER_CODE
 
@@ -402,6 +400,7 @@ void set_hsv(uint8_t hue, uint8_t sat, uint8_t val) {
     #elif defined(RGBLIGHT_ENABLE)
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
   rgblight_sethsv(hue, sat, val);
+  dprintf("hue:%i sat:%i val:%i", hue, sat, val);
     #endif
 }
 
@@ -651,25 +650,34 @@ void keyboard_post_init_user(void) {
   user_config.raw       = eeconfig_read_user();
   current_default_layer = user_config.default_layer;
 
-    #ifdef DEBUG
-  debug_enable   = true;
-  debug_matrix   = true;
-  debug_keyboard = true;
-      #ifdef MOUSEKEY_ENABLE
-        /* debug_mouse = true; */
-      #endif
-
-  dprint("keyboard_post_init_user() -- debug init");
-
-    #endif
-
     // Init RGB
     #ifndef NO_RGB
+      #if defined(RGBLIGHT_ENABLE)
+  rgblight_enable_noeeprom();
+      #else
+  rgb_matrix_enable();
+      #endif
   if (current_default_layer == _GAMING) {
     set_gmg_hsv();
   } else {
     update_hsv();
   }
+    #endif
+
+    // Init debug
+    #ifdef DEBUG
+  /* debug_enable   = true; */
+  /* debug_matrix   = true; */
+  debug_keyboard = true;
+      #ifdef MOUSEKEY_ENABLE
+        /* debug_mouse = true; */
+      #endif
+  dprint("keyboard_post_init_user() -- debug init");
+
+      #ifdef RGBLIGHT_ENABLE
+
+      #endif
+
     #endif
 
   // Call specific board initialization
