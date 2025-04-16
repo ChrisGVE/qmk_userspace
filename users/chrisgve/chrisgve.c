@@ -182,6 +182,29 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 
   #ifdef WORD_CAPS_ENABLE
     #ifdef COMBO_ENABLE
+
+// Manage keys that leave in or exit the Caps Word mode
+bool caps_word_press_user(uint16_t keycode) {
+  switch (keycode) {
+    // Keycodes that continue Cap Word, with shift applied.
+    case KC_A ... KC_Z:
+    case KC_MINS:
+      add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+      return true;
+
+    // Keycodes that continue Caps word, without shifting.
+    case KC_1 ... KC_0:
+    case KC_BSPC:
+    case KC_UNDS:
+    case R_SHIFT:
+    case SFT_MSE:
+      return true;
+
+    default:
+      return false; // Deactivate Caps Word
+  }
+}
+
 const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
 const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
 combo_t                key_combos[]    = {
@@ -502,6 +525,13 @@ bool update_indicator(void) {
   #ifdef LED_CAPS_LOCK_PIN
   bool state = caps_lock | caps_word;
   gpio_write_pin(LED_CAPS_LOCK_PIN, state);
+  #endif
+  #ifdef BACKLIGHT_CAPS_LOCK
+  if (caps_word) {
+    backlight_enable();
+  } else {
+    backlight_disable();
+  }
   #endif
   return true;
 }

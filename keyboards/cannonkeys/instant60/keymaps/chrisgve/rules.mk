@@ -1,2 +1,3 @@
 USER_NAME := chrisgve
 RGBLIGHT_ENABLE = no
+# BACKLIGHT_ENABLE = yes
