@@ -42,6 +42,7 @@ qmk compile --parallel 0 -kb kbdfans/kbdpad/mk2 -km chrisgve >>"$QMK_USERSPACE_L
 qmk compile --parallel 0 -kb kbdfans/odin/soldered -km chrisgve >>"$QMK_USERSPACE_LOG/odin.log" 2>&1
 qmk compile --parallel 0 -kb keebsforall/freebirdnp/pro -km chrisgve >>"$QMK_USERSPACE_LOG/freebirdnp.log" 2>&1
 qmk compile --parallel 0 -kb keebsforall/freebirdtkl -km chrisgve >>"$QMK_USERSPACE_LOG/freebirdtkl.log" 2>&1
+qmk compile --parallel 0 -kb keycult/keycult_zero -km chrisgve >>"$QMK_USERSPACE_LOG/keycult_zero.log" 2>&1
 qmk compile --parallel 0 -kb kopibeng/mnk65_stm32 -km chrisgve >>"$QMK_USERSPACE_LOG/mnk65.log" 2>&1
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/apm32f103 -km chrisgve >>"$QMK_USERSPACE_LOG/adelais_apm32f103_chrisgve.log" 2>&1
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/apm32f103 -km chrisgve_hhkb >>"$QMK_USERSPACE_LOG/adelais_apm32f103_chrisgve_hhkb.log" 2>&1
@@ -50,6 +51,7 @@ qmk compile --parallel 0 -kb mechlovin/zed60 -km chrisgve >>"$QMK_USERSPACE_LOG/
 qmk compile --parallel 0 -kb mode/m65s -km chrisgve >>"$QMK_USERSPACE_LOG/m65s.log" 2>&1
 qmk compile --parallel 0 -kb quarkeys/z60/solder -km chrisgve >>"$QMK_USERSPACE_LOG/z60.log" 2>&1
 qmk compile --parallel 0 -kb windstudio/wind_x/r1 -km chrisgve >>"$QMK_USERSPACE_LOG/wind_x.log" 2>&1
+qmk compile --parallel 0 -kb ymdk/oni_hhkb -km chrisgve >> "$QMK_USERSPACE_LOG/oni_hhkb.log" 2>&1
 qmk compile --parallel 0 -kb zlant_xl -km chrisgve >>"$QMK_USERSPACE_LOG/zlant_xl.log" 2>&1
 
 rg -i error log
