@@ -7,6 +7,7 @@ MIDI_ENABLE = no
 TAP_DANCE_ENABLE = yes
 NKRO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
 
 # Both are needed for CAPS_WORD since shift cannot be used
 CAPS_WORD_ENABLE = yes
@@ -47,6 +48,10 @@ ifdef USER_NAME
 	ifeq ($(strip $(USER_NAME)), chrisgve)
 		OPT_DEFS += -DCHRISGVE
 	endif
+endif
+
+ifeq ($(strip $(AGAR_ENABLE)), yes)
+	OPT_DEFS += -DAGAR_ENABLE
 endif
 
 ifeq ($(strip $(DISABLE_USER_CODE)), yes)

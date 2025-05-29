@@ -1,5 +1,6 @@
-// Standard config
+#pragma once
 
+// Standard config
 #ifdef TAPPING_TERM
   #undef TAPPING_TERM
 #endif
@@ -12,6 +13,58 @@
   #ifdef DEBOUNCE
     #undef DEBOUNCE
   #endif
+#endif
+
+#define xxxxxxx XXXXXXX
+
+#if defined(BACKLIGHT_ENABLE) // Single led
+  #define L_TOGG BL_TOGG
+  #define L_UP BL_UP
+  #define L_DN BL_DOWN
+  #define L_NEXT BL_BRTG
+  #define L_PREV BL_BRTG
+  #define L_HUEU BL_UP
+  #define L_HUED BL_DOWN
+  #define L_SATU BL_UP
+  #define L_SATD BL_DOWN
+  #define L_SPDU XXXXXXX
+  #define L_SPDD XXXXXXX
+#elif defined(RGBLIGHT_ENABLE) // Underglow
+  #define L_TOGG UG_TOGG
+  #define L_UP UG_VALU
+  #define L_DN UG_VALD
+  #define L_NEXT UG_NEXT
+  #define L_PREV UG_PREV
+  #define L_HUEU UG_HUEU
+  #define L_HUED UG_HUED
+  #define L_SATU UG_SATU
+  #define L_SATD UG_SATD
+  #define L_SPDU UG_SPDU
+  #define L_SPDD UG_SPDD
+#elif defined(RGB_MATRRIX_ENABLE) // Per key
+  #define L_TOGG RM_TOGG
+  #define L_UP RM_VALU
+  #define L_DN RM_VALD
+  #define L_NEXT RM_NEXT
+  #define L_PREV RM_PREV
+  #define L_HUEU RM_HUEU
+  #define L_HUED RM_HUED
+  #define L_SATU RM_SATU
+  #define L_SATD RM_SATD
+  #define L_SPDU RM_SPDU
+  #define L_SPDD RM_SPDD
+#else
+  #define L_TOGG xxxxxxx
+  #define L_UP xxxxxxx
+  #define L_DN xxxxxxx
+  #define L_NEXT xxxxxxx
+  #define L_PREV xxxxxxx
+  #define L_HUEU xxxxxxx
+  #define L_HUED xxxxxxx
+  #define L_SATU xxxxxxx
+  #define L_SATD xxxxxxx
+  #define L_SPDU xxxxxxx
+  #define L_SPDD xxxxxxx
 #endif
 
 // #define RGB_MATRIX_DISABLE_SHARED_KEYCODES

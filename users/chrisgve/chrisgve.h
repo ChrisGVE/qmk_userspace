@@ -613,21 +613,23 @@ enum custom_keycodes {
 
 // Define combos if WORD_CAPS is enabled
 #ifdef WORD_CAPS_ENABLE
-  // Setting up Caps Word
-  // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-  #define CAPS_WORD_INVERT_ON_SHIFT
-  #ifdef CAPS_WORD_IDLE_TIMEOUT
-    #undef CAPS_WORD_IDLE_TIMEOUT
-    #define CAPS_WORD_IDLE_TIMEOUT 2000 // 2 seconds.
-  #endif
+  #ifndef AGAR_ENABLE
+    // Setting up Caps Word
+    // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+    #define CAPS_WORD_INVERT_ON_SHIFT
+    #ifdef CAPS_WORD_IDLE_TIMEOUT
+      #undef CAPS_WORD_IDLE_TIMEOUT
+      #define CAPS_WORD_IDLE_TIMEOUT 2000 // 2 seconds.
+    #endif
 
-  #ifdef COMBO_ENABLE
+    #ifdef COMBO_ENABLE
 const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
 const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
 combo_t                key_combos[]    = {
     COMBO(word_caps_gui, KC_CAPS_WORD_TOGGLE),
     COMBO(word_caps_alt, KC_CAPS_WORD_TOGGLE),
 };
+    #endif
   #endif
 #endif
 

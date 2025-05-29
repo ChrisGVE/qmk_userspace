@@ -181,13 +181,15 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
   #endif
 
   #ifdef WORD_CAPS_ENABLE
-    #ifdef COMBO_ENABLE
+    #ifndef AGAR_ENABLE
+      #ifdef COMBO_ENABLE
 const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
 const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
 combo_t                key_combos[]    = {
     COMBO(word_caps_gui, KC_CAPS_WORD_TOGGLE),
     COMBO(word_caps_alt, KC_CAPS_WORD_TOGGLE),
 };
+      #endif
     #endif
   #endif
   // EEPROM user configuration
@@ -286,7 +288,11 @@ typedef enum { TD_NONE, TD_UNKNOWN, TD_SINGLE_TAP, TD_SINGLE_HOLD, TD_DOUBLE_SIN
 // Global instance of the tapdance state type
 static td_state_t td_state;
 
+    #ifdef AGAR_ENABLE
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    #else
 td_state_t cur_dance(tap_dance_state_t *state) {
+    #endif
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)
       return TD_SINGLE_TAP;
@@ -300,7 +306,11 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     return TD_UNKNOWN;
 }
 
+    #ifdef AGAR_ENABLE
+void cps_ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+    #else
 void cps_ctl_finished(tap_dance_state_t *state, void *user_data) {
+    #endif
   td_state = cur_dance(state);
   switch (td_state) {
     case TD_SINGLE_TAP:
@@ -319,7 +329,11 @@ void cps_ctl_finished(tap_dance_state_t *state, void *user_data) {
   }
 }
 
+    #ifdef AGAR_ENABLE
+void cps_ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+    #else
 void cps_ctl_reset(tap_dance_state_t *state, void *user_data) {
+    #endif
   switch (td_state) {
     case TD_SINGLE_TAP:
       if (caps_lock) {
@@ -337,7 +351,11 @@ void cps_ctl_reset(tap_dance_state_t *state, void *user_data) {
   }
 }
 
+    #ifdef AGAR_ENABLE
+void tap_dance_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
+    #else
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
+    #endif
   tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
   if (state->pressed) {
@@ -357,7 +375,11 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
 
     #ifdef KEYBOARD_SHARED_EP
 
+      #ifdef AGAR_ENABLE
+void tap_dance_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
+      #else
 void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
+      #endif
   tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
   if (tap_hold->held) {
@@ -374,16 +396,20 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
 
     #endif
 
-// Tap Dance definition
+    // Tap Dance definition
+    #ifdef AGAR_ENABLE
+qk_tap_dance_action_t tap_dance_actions[] = {
+    #else
 tap_dance_action_t tap_dance_actions[] = {
+    #endif
     // Tap once or Shift, twice for mouse layer
     #ifdef MOUSEKEY_ENABLE
-    [TD_LSHIFT_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _EX_MOUSE),
+  [TD_LSHIFT_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _EX_MOUSE),
     #endif
-    [TD_ADJ_NUM]   = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJUST, _NUM),
-    [TD_CTRL_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cps_ctl_finished, cps_ctl_reset),
+  [TD_ADJ_NUM]   = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJUST, _NUM),
+  [TD_CTRL_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cps_ctl_finished, cps_ctl_reset),
     #ifdef KEYBOARD_SHARED_EP
-    [TD_ESC_GLOBE] = ACTION_TAP_DANCE_TAP_HOLD(KC_ESC, KC_GLOBE),
+  [TD_ESC_GLOBE] = ACTION_TAP_DANCE_TAP_HOLD(KC_ESC, KC_GLOBE),
     #endif
 };
 
@@ -689,7 +715,11 @@ void keyboard_post_init_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     #ifdef KEYBOARD_SHARED_EP
+      #ifdef AGAR_ENABLE
+  qk_tap_dance_action_t *action;
+      #else
   tap_dance_action_t *action;
+      #endif
     #endif
   #endif
 
