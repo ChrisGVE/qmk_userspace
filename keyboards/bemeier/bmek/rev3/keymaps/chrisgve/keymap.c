@@ -17,17 +17,6 @@
 
 #include "chrisgve.h"
 
-#ifdef CAPS_WORD_ENABLE
-  #ifdef COMBO_ENABLE
-const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
-const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
-combo_t                key_combos[]    = {
-    COMBO(word_caps_gui, QK_CAPS_WORD_TOGGLE),
-    COMBO(word_caps_alt, QK_CAPS_WORD_TOGGLE),
-};
-  #endif
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -42,68 +31,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_QWERTY_MAC] = LAYOUT_hhkb(
       KC_HOME,  ESC_GLB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, GRV_MEH,
       KC_PGUP,  TAB_HYP,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-      KC_PGDN,  KC_LCTL,  A_MOUSE, KC_S,    M_NAV_1, M_F_NAV, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      KC_PGDN,  KC_LCTL,  A_MOUSE, KC_S,    M_NAV,   F_NAV_2, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
       KC_END,   SFT_MSE,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT, ADJUST,
                           KC_LALT, KC_LGUI,          SPC_RSE,                   SPC_RSE,          KC_RGUI, KC_RALT
     ),
 
-   [_MAC_NAV_1] = LAYOUT_hhkb(
+   [_MAC_NAV] = LAYOUT_hhkb(
       _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       _______,  _______, xxxxxxx, M_F_WRD, xxxxxxx, xxxxxxx, xxxxxxx,  M_YANK,  xxxxxxx, xxxxxxx, xxxxxxx, M_PUT,   xxxxxxx, xxxxxxx, _______,
-      _______,  _______, A_SHIFT, S_SHIFT, xxxxxxx, M_NAV_2, xxxxxxx,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, M_DEL,   xxxxxxx, xxxxxxx, M_B_WRD,  M_B_WRD, KC_HOME, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, _______, _______,
-                         _______, _______,          xxxxxxx,                    xxxxxxx,          _______, _______
-    ),
-
-   [_MAC_NAV_2] = LAYOUT_hhkb(
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______,
+      _______,  _______, A_SHIFT, S_SHIFT, xxxxxxx, NAV_2,   xxxxxxx,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
+      _______,  _______, xxxxxxx, M_DEL,   xxxxxxx, xxxxxxx, M_B_WRD,  M_B_WRD, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, _______, _______,
                          _______, _______,          xxxxxxx,                    xxxxxxx,          _______, _______
     ),
 
    [_QWERTY_LINUX] = LAYOUT_hhkb(
       KC_HOME,  KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, GRV_MEH,
       KC_PGUP,  TAB_HYP,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-      KC_PGDN,  KC_LCTL,  A_MOUSE, KC_S,    L_NAV_1, L_F_NAV, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      KC_PGDN,  KC_LCTL,  A_MOUSE, KC_S,    L_NAV,   F_NAV_2, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
       KC_END,   SFT_MSE,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT, ADJUST,
                           KC_LGUI, KC_LALT,          SPC_RSE,                   SPC_RSE,          KC_RALT, KC_RGUI
     ),
 
-   [_LINUX_NAV_1] = LAYOUT_hhkb(
+   [_LINUX_NAV] = LAYOUT_hhkb(
       _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       _______,  _______, xxxxxxx, L_F_WRD, xxxxxxx, xxxxxxx, xxxxxxx,  L_YANK,  xxxxxxx, xxxxxxx, xxxxxxx, L_PUT,   xxxxxxx, xxxxxxx, _______,
-      _______,  _______, A_SHIFT, S_SHIFT, xxxxxxx, L_NAV_2, xxxxxxx,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, L_DEL,   xxxxxxx, xxxxxxx, L_B_WRD,  L_B_WRD, KC_HOME, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, _______, _______,
-                         _______, _______,          xxxxxxx,                    xxxxxxx,          _______, _______
-    ),
-
-   [_LINUX_NAV_2] = LAYOUT_hhkb(
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______,
+      _______,  _______, A_SHIFT, S_SHIFT, xxxxxxx, NAV_2,   xxxxxxx,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
+      _______,  _______, xxxxxxx, L_DEL,   xxxxxxx, xxxxxxx, L_B_WRD,  L_B_WRD, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, _______, _______,
                          _______, _______,          xxxxxxx,                    xxxxxxx,          _______, _______
     ),
 
    [_QWERTY_WIN] = LAYOUT_hhkb(
       KC_HOME,  KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
       KC_PGUP,  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-      KC_PGDN,  KC_LCTL,  KC_A,    KC_S,    W_NAV_1, W_F_NAV, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      KC_PGDN,  KC_LCTL,  KC_A,    KC_S,    W_NAV,   F_NAV_2, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
       KC_END,   SFT_MSE,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, ADJUST,
                           KC_LGUI, KC_LALT,          SPC_RSE,                   SPC_RSE,          KC_RALT, KC_RGUI
     ),
 
-   [_WIN_NAV_1] = LAYOUT_hhkb(
+   [_WIN_NAV] = LAYOUT_hhkb(
       _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       _______,  _______, xxxxxxx, W_F_WRD, xxxxxxx, xxxxxxx, xxxxxxx,  W_YANK,  xxxxxxx, xxxxxxx, xxxxxxx, W_PUT,   xxxxxxx, xxxxxxx, _______,
-      _______,  _______, A_SHIFT, S_SHIFT, xxxxxxx, W_NAV_2, xxxxxxx,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
-      _______,  _______, xxxxxxx, W_DEL,   xxxxxxx, xxxxxxx, W_B_WRD,  W_B_WRD, KC_HOME, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, _______, _______,
+      _______,  _______, A_SHIFT, S_SHIFT, xxxxxxx, NAV_2,   xxxxxxx,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
+      _______,  _______, xxxxxxx, W_DEL,   xxxxxxx, xxxxxxx, W_B_WRD,  W_B_WRD, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, _______, _______,
                          _______, _______,          xxxxxxx,                    xxxxxxx,          _______, _______
     ),
 
-   [_WIN_NAV_2] = LAYOUT_hhkb(
+   [_NAV_2] = LAYOUT_hhkb(
       _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       _______,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx, _______,
@@ -128,19 +101,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
    [_MOUSE] = LAYOUT_hhkb(
-      xxxxxxx,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
-      KC_WH_U,  KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-      KC_WH_D,  _______, xxxxxxx, KC_ACL2, KC_ACL1, KC_ACL0, KC_BTN2,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, xxxxxxx, xxxxxxx, _______,
-      xxxxxxx,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, KC_WH_U, KC_WH_D, xxxxxxx, xxxxxxx, xxxxxxx, KC_RSFT, _______,
-                         _______, _______,          KC_BTN1,                    KC_BTN1,          _______, _______
+      xxxxxxx,  _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5,  MS_BTN6, MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
+      MS_WHLU,  KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
+      MS_WHLD,  _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
+      xxxxxxx,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, KC_RSFT, _______,
+                         _______, _______,          MS_BTN1,                    MS_BTN1,          _______, _______
     ),
 
    [_EX_MOUSE] = LAYOUT_hhkb(
-      xxxxxxx,  _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
-      KC_WH_U,  KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-      KC_WH_D,  _______, xxxxxxx, KC_ACL2, KC_ACL1, KC_ACL0, KC_BTN2,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, xxxxxxx, xxxxxxx, _______,
-      xxxxxxx,  TG_MSE,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, KC_WH_U, KC_WH_D, xxxxxxx, xxxxxxx, xxxxxxx, KC_RSFT, _______,
-                         _______, _______,          KC_BTN1,                    KC_BTN1,          _______, _______
+      xxxxxxx,  _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5,  MS_BTN6, MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
+      MS_WHLU,  KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
+      MS_WHLD,  _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
+      xxxxxxx,  TG_MSE,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,  MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, KC_RSFT, _______,
+                         _______, _______,          MS_BTN1,                    MS_BTN1,          _______, _______
     ),
 
 };

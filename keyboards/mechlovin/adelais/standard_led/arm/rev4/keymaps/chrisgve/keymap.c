@@ -17,17 +17,6 @@
 
 #include "chrisgve.h"
 
-#ifdef CAPS_WORD_ENABLE
-  #ifdef COMBO_ENABLE
-const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
-const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
-combo_t                key_combos[]    = {
-    COMBO(word_caps_gui, QK_CAPS_WORD_TOGGLE),
-    COMBO(word_caps_alt, QK_CAPS_WORD_TOGGLE),
-};
-  #endif
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -42,68 +31,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_MAC] = LAYOUT_alice_split_bs(
      KC_PGUP, ESC_GLB, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, GRV_MEH,
      KC_PGDN, TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-     KC_END,  KC_LCTL, A_MOUSE, KC_S,    M_NAV_1, M_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+     KC_END,  KC_LCTL, A_MOUSE, KC_S,    M_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,   R_SHIFT, KC_SLSH,
               KC_LALT,          KC_LGUI,          SPC_RSE,          ADJUST,                   SPC_RSE,          KC_RGUI,                            KC_RALT
     ),
 
-    [_MAC_NAV_1] = LAYOUT_alice_split_bs(
+    [_MAC_NAV] = LAYOUT_alice_split_bs(
      _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      _______, _______, xxxxxxx, M_F_WRD, xxxxxxx, xxxxxxx, xxxxxxx,                  M_YANK,  xxxxxxx, xxxxxxx, xxxxxxx, M_PUT,   xxxxxxx, xxxxxxx, _______,
-     _______, _______, A_SHIFT, S_SHIFT, xxxxxxx, M_NAV_2, xxxxxxx,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, M_DEL,   xxxxxxx, xxxxxxx, M_B_WRD,         M_B_WRD, KC_HOME, KC_END,  xxxxxxx, xxxxxxx, _______, _______, xxxxxxx,
-              _______,          _______,          xxxxxxx,          _______,                  xxxxxxx,          _______,                            _______
-    ),
-
-    [_MAC_NAV_2] = LAYOUT_alice_split_bs(
-     _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx,
+     _______, _______, A_SHIFT, S_SHIFT, xxxxxxx, NAV_2,   xxxxxxx,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
+              _______,          xxxxxxx, M_DEL,   xxxxxxx, xxxxxxx, M_B_WRD,         M_B_WRD, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, xxxxxxx,
               _______,          _______,          xxxxxxx,          _______,                  xxxxxxx,          _______,                            _______
     ),
 
     [_QWERTY_LINUX] = LAYOUT_alice_split_bs(
      KC_PGUP, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, GRV_MEH,
      KC_PGDN, TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-     KC_END,  KC_LCTL, A_MOUSE, KC_S,    L_NAV_1, L_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+     KC_END,  KC_LCTL, A_MOUSE, KC_S,    L_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,  R_SHIFT, KC_SLSH,
               KC_LGUI,          KC_LALT,          SPC_RSE,          ADJUST,                   SPC_RSE,          KC_RALT,                            KC_RGUI
     ),
 
-    [_LINUX_NAV_1] = LAYOUT_alice_split_bs(
+    [_LINUX_NAV] = LAYOUT_alice_split_bs(
      _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      _______, _______, xxxxxxx, L_F_WRD, xxxxxxx, xxxxxxx, xxxxxxx,                  L_YANK,  xxxxxxx, xxxxxxx, xxxxxxx, L_PUT,   xxxxxxx, xxxxxxx, _______,
-     _______, _______, A_SHIFT, S_SHIFT, xxxxxxx, L_NAV_2, xxxxxxx,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, L_DEL,   xxxxxxx, xxxxxxx, L_B_WRD,         L_B_WRD, KC_HOME, KC_END,  xxxxxxx, xxxxxxx, _______, _______, xxxxxxx,
-              _______,          _______,          xxxxxxx,          _______,                  xxxxxxx,          _______,                            _______
-    ),
-
-    [_LINUX_NAV_2] = LAYOUT_alice_split_bs(
-     _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx,
+     _______, _______, A_SHIFT, S_SHIFT, xxxxxxx, NAV_2,   xxxxxxx,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
+              _______,          xxxxxxx, L_DEL,   xxxxxxx, xxxxxxx, L_B_WRD,         L_B_WRD, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, xxxxxxx,
               _______,          _______,          xxxxxxx,          _______,                  xxxxxxx,          _______,                            _______
     ),
 
     [_QWERTY_WIN] = LAYOUT_alice_split_bs(
      KC_PGUP, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
      KC_PGDN, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-     KC_END,  KC_LCTL, KC_A,    KC_S,    W_NAV_1, W_F_NAV, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+     KC_END,  KC_LCTL, KC_A,    KC_S,    W_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,  KC_RSFT, KC_SLSH,
               KC_LGUI,          KC_LALT,          SPC_RSE,          ADJUST,                   SPC_RSE,          KC_RALT,                            KC_RGUI
     ),
 
-    [_WIN_NAV_1] = LAYOUT_alice_split_bs(
+    [_WIN_NAV] = LAYOUT_alice_split_bs(
      _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      _______, _______, xxxxxxx, W_F_WRD, xxxxxxx, xxxxxxx, xxxxxxx,                  W_YANK,  xxxxxxx, xxxxxxx, xxxxxxx, W_PUT,   xxxxxxx, xxxxxxx, _______,
-     _______, _______, A_SHIFT, S_SHIFT, xxxxxxx, W_NAV_2, xxxxxxx,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, W_DEL,   xxxxxxx, xxxxxxx, W_B_WRD,         W_B_WRD, KC_HOME, KC_END,  xxxxxxx, xxxxxxx, _______, _______, xxxxxxx,
+     _______, _______, A_SHIFT, S_SHIFT, xxxxxxx, NAV_2,   xxxxxxx,                  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, _______,
+              _______,          xxxxxxx, W_DEL,   xxxxxxx, xxxxxxx, W_B_WRD,         W_B_WRD, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, xxxxxxx,
               _______,          _______,          xxxxxxx,          _______,                  xxxxxxx,          _______,                            _______
     ),
 
-    [_WIN_NAV_2] = LAYOUT_alice_split_bs(
+    [_NAV_2] = LAYOUT_alice_split_bs(
      _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx, _______,
@@ -128,19 +101,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_MOUSE] = LAYOUT_alice_split_bs(
-     KC_WH_U, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
-     KC_WH_D, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     xxxxxxx, _______, xxxxxxx, KC_ACL2, KC_ACL1, KC_ACL0, KC_BTN2,                  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         KC_WH_U, KC_WH_D, xxxxxxx, xxxxxxx, xxxxxxx, _______, KC_RSFT, xxxxxxx,
-              _______,          _______,          KC_BTN1,          _______,                  KC_BTN1,          _______,                            _______
+     MS_WHLU, _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6,         MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
+     MS_WHLD, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
+     xxxxxxx, _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,                  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
+              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL,         MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, _______, KC_RSFT, xxxxxxx,
+              _______,          _______,          MS_BTN1,          _______,                  MS_BTN1,          _______,                            _______
     ),
 
     [_EX_MOUSE] = LAYOUT_alice_split_bs(
-     KC_WH_U, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
-     KC_WH_D, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     xxxxxxx, _______, xxxxxxx, KC_ACL2, KC_ACL1, KC_ACL0, KC_BTN2,                  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, xxxxxxx, xxxxxxx, _______,
-              TG_MSE,           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         KC_WH_U, KC_WH_D, xxxxxxx, xxxxxxx, xxxxxxx, _______, KC_RSFT, xxxxxxx,
-              _______,          _______,          KC_BTN1,          _______,                  KC_BTN1,          _______,                            _______
+     MS_WHLU, _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6,         MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
+     MS_WHLD, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
+     xxxxxxx, _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,                  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
+              TG_MSE,           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL,         MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, _______, KC_RSFT, xxxxxxx,
+              _______,          _______,          MS_BTN1,          _______,                  MS_BTN1,          _______,                            _______
     ),
 
 };
