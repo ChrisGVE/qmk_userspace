@@ -9,13 +9,20 @@ NKRO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 
-# Both are needed for CAPS_WORD since shift cannot be used
-CAPS_WORD_ENABLE = yes
+CHRISGVE_CAPS_WORD_ENABLE = yes
+
+SRC += casp_word_combos.c
 
 ifeq ($(strip $(COMBO_ENABLE)), no)
 	COMBO_ENABLE = no
 else
 	COMBO_ENABLE = yes
+endif
+
+ifeq ($(strip $(CHRISGVE_CAPS_WORD_ENABLE)), yes)
+	OPT_DEFS += -DCHRISGVE_CAPS_WORD_ENABLE
+	COMBE_ENABLE = yes
+	CAPS_WORD_ENABLE = yes
 endif
 
 # Enable the KC_GLOBE key

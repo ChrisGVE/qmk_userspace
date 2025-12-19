@@ -2,6 +2,12 @@
 #include "action_layer.h"
 #include "host.h"
 
+#ifdef TAP_DANCE_ENABLE
+  #if __has_include("quantum/keymap_introspection.h")
+    #include "quantum/keymap_introspection.h"
+  #endif
+#endif
+
 #if defined(RGBLIGHT_ENABLE)
   #include "rgblight.h"
 #elif defined(RGB_MATRIX_ENABLE)
@@ -68,12 +74,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case SPC_RSE:
     case SLS_SFT:
     case A_MOUSE:
-    case M_NAV_1:
-    case L_NAV_1:
-    case W_NAV_1:
-    case M_F_NAV:
-    case L_F_NAV:
-    case W_F_NAV:
+    case M_NAV:
+    case L_NAV:
+    case W_NAV:
+    case F_NAV_2:
     #ifdef DYNAMIC_TAPPING_TERM_ENABLE
       return g_tapping_term;
     #else
@@ -106,12 +110,10 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     case PGDN_AD:
     // case SPC_LWR:
     // case SPC_RSE:
-    // case M_NAV_1:
-    // case L_NAV_1:
-    // case W_NAV_1:
-    // case M_F_NAV:
-    // case L_F_NAV:
-    // case W_F_NAV:
+    // case M_NAV:
+    // case L_NAV:
+    // case W_NAV:
+    // case F_NAV_2:
     case R_SHIFT:
       // Immediately select the hold action when another key is tapped.
       // return true;
@@ -158,12 +160,12 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     /* case A_MOUSE:
-    case M_NAV_1:
-    case L_NAV_1:
-    case W_NAV_1:
-    case M_F_NAV:
-    case L_F_NAV:
-    case W_F_NAV:
+    case M_NAV:
+    case L_NAV:
+    case W_NAV:
+    case F_NAV_2:
+    case F_NAV_2:
+    case F_NAV_2:
         return true; */
     default:
       return false;
@@ -631,16 +633,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       cur_layer = _GMG_L;
       def_layer = true;
       break;
-    case _MAC_NAV_1:
-    case _LINUX_NAV_1:
-    case _WIN_NAV_1:
+    case _MAC_NAV:
+    case _LINUX_NAV:
+    case _WIN_NAV:
       cur_layer   = _NAV1_L;
       def_layer   = false;
       mouse_layer = false;
       break;
-    case _MAC_NAV_2:
-    case _LINUX_NAV_2:
-    case _WIN_NAV_2:
+    case _NAV_2:
       cur_layer   = _NAV2_L;
       def_layer   = false;
       mouse_layer = false;
@@ -719,6 +719,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   qk_tap_dance_action_t *action;
       #else
   tap_dance_action_t *action;
+  tap_dance_state_t  *state;
       #endif
     #endif
   #endif
@@ -727,8 +728,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     #ifdef KEYBOARD_SHARED_EP
     case TD(TD_ESC_GLOBE): // list all tap dance keycodes with tap-hold configurations
-      action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-      if (!record->event.pressed && action->state.count && !action->state.finished) {
+      action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
+      state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
+      if (!record->event.pressed && state->count && !state->finished) {
         tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
         tap_code16(tap_hold->tap);
       }

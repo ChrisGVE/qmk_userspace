@@ -29,15 +29,13 @@
 enum default_layers {
   _QWERTY_MAC, // QWERTY Mac base layout
   MAC_BASE = _QWERTY_MAC,
-  _MAC_NAV_1,  // Mac Navigation layer 1
-  _MAC_NAV_2,  // Mac Navigation layer 2
+  _MAC_NAV,    // Mac Navigation layer
   _QWERTY_WIN, // QWERTY Windows base layout
   WIN_BASE = _QWERTY_WIN,
-  _WIN_NAV_1,    // Windows Navigation layer 1
-  _WIN_NAV_2,    // Windows Navigation layer 2
+  _WIN_NAV,      // Windows Navigation layer
   _QWERTY_LINUX, // QWERTY Linux base layout
-  _LINUX_NAV_1,  // Linux Navigation layer 1
-  _LINUX_NAV_2,  // Linux Navigation layer 2
+  _LINUX_NAV,    // Linux Navigation layer
+  _NAV_2,        // Navigation layer 2
   _RAISE,        // Raise layer on ortho
   _LOWER,        // Lower layer on ortho
   _MOUSE,        // Mouse key layer
@@ -678,12 +676,12 @@ enum tap_dance_codes {
 #endif
 
 // #define TAPPING_TOGGLE 2
-#define M_TG_N1 TG(_MAC_NAV_1)
-#define L_TG_N1 TG(_LINUX_NAV_1)
-#define W_TG_N1 TG(_WIN_NAV_1)
-#define M_TG_N2 TG(_MAC_NAV_2)
-#define L_TG_N2 TG(_LINUX_NAV_2)
-#define W_TG_N2 TG(_WIN_NAV_2)
+#define M_TG_N1 TG(_MAC_NAV)
+#define L_TG_N1 TG(_LINUX_NAV)
+#define W_TG_N1 TG(_WIN_NAV)
+#define M_TG_N2 TG(_NAV_2)
+#define L_TG_N2 TG(_NAV_2)
+#define W_TG_N2 TG(_NAV_2)
 
 #define DF_MAC DF(_QWERTY_MAC)
 #define DF_WIN DF(_QWERTY_WIN)
@@ -691,10 +689,12 @@ enum tap_dance_codes {
 #define DF_NUM DF(_NUM)
 #define DF_GMG DF(_GAMING)
 
+// Global definitions
+#define F_NAV_2 LT(_NAV_2, KC_F)
+#define NAV_2 MO(_NAV_2)
+
 // Mac only definitions
-#define M_NAV_1 LT(_MAC_NAV_1, KC_D)
-#define M_NAV_2 MO(_MAC_NAV_2)
-#define M_F_NAV LT(_MAC_NAV_2, KC_F)
+#define M_NAV LT(_MAC_NAV, KC_D)
 #define M_F_WRD A(KC_RIGHT)
 #define M_B_WRD A(KC_LEFT)
 #define M_YANK G(KC_C)
@@ -704,9 +704,7 @@ enum tap_dance_codes {
 #define CAPTURE S(G(KC_5))
 
 // Linux only definitions
-#define L_NAV_1 LT(_LINUX_NAV_1, KC_D)
-#define L_NAV_2 MO(_LINUX_NAV_2)
-#define L_F_NAV LT(_LINUX_NAV_2, KC_F)
+#define L_NAV LT(_LINUX_NAV, KC_D)
 #define L_F_WRD A(KC_RIGHT)
 #define L_B_WRD A(KC_LEFT)
 #define L_YANK C(KC_C)
@@ -714,9 +712,7 @@ enum tap_dance_codes {
 #define L_DEL C(KC_X)
 
 // Windows only definitions
-#define W_NAV_1 LT(_WIN_NAV_1, KC_D)
-#define W_NAV_2 MO(_WIN_NAV_2)
-#define W_F_NAV LT(_WIN_NAV_2, KC_F)
+#define W_NAV LT(_WIN_NAV, KC_D)
 #define W_F_WRD C(KC_RIGHT)
 #define W_B_WRD C(KC_LEFT)
 #define W_YANK C(KC_C)
