@@ -1,0 +1,7 @@
+"M_NAV_1," => "M_NAV,  "
+"L_NAV_1," => "L_NAV,  "
+"W_NAV_1," => "W_NAV,  "
+"F_NAV,  " => "F_NAV_2,"
+"[_MAC_NAV_1] =" => "[_MAC_NAV] ="
+"[_LINUX_NAV_1] =" => "[_LINUX_NAV] ="
+"[_WIN_NAV_1] =" => "[_WIN_NAV] ="

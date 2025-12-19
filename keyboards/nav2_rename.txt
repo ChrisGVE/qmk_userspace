@@ -1,0 +1,6 @@
+"M_NAV_2," => "NAV_2,  "
+"L_NAV_2," => "NAV_2,  "
+"W_NAV_2," => "NAV_2,  "
+"M_F_NAV," => "F_NAV,  "
+"L_F_NAV," => "F_NAV,  "
+"W_F_NAV," => "F_NAV,  "
