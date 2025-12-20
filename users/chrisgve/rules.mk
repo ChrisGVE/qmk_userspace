@@ -11,8 +11,6 @@ EXTRAKEY_ENABLE = yes
 
 CHRISGVE_CAPS_WORD_ENABLE = yes
 
-SRC += casp_word_combos.c
-
 ifeq ($(strip $(COMBO_ENABLE)), no)
 	COMBO_ENABLE = no
 else
@@ -21,7 +19,7 @@ endif
 
 ifeq ($(strip $(CHRISGVE_CAPS_WORD_ENABLE)), yes)
 	OPT_DEFS += -DCHRISGVE_CAPS_WORD_ENABLE
-	COMBE_ENABLE = yes
+	COMBO_ENABLE = yes
 	CAPS_WORD_ENABLE = yes
 endif
 

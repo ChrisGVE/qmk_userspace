@@ -17,3 +17,4 @@ compile_commands.json
 .ipynb_checkpoints
 log
 .virtual_documents
+.taskmaster
