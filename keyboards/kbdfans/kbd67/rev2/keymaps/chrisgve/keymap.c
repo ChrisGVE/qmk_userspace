@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,          MS_WHLU,
         _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx,          _______,          MS_WHLD,
         _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, KC_RSFT,                   MS_UP,   ADJUST,
-        _______, _______, _______,                   MS_BTN1,                            _______, _______,                   MS_LEFT, MS_DOWN, KC_MS_R
+        _______, _______, _______,                   MS_BTN1,                            _______, _______,                   MS_LEFT, MS_DOWN, MS_RGHT
     ),
 
     [_EX_MOUSE] = LAYOUT_65_ansi_blocker_split_bs(
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,          MS_WHLU,
         _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx,          _______,          MS_WHLD,
         TG_MSE,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, KC_RSFT,                   MS_UP,   ADJUST,
-        _______, _______, _______,                   MS_BTN1,                            _______, _______,                   MS_LEFT, MS_DOWN, KC_MS_R
+        _______, _______, _______,                   MS_BTN1,                            _______, _______,                   MS_LEFT, MS_DOWN, MS_RGHT
     ),
 
 };
