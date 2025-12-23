@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,  MS_WHLU, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
 		KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,          MS_WHLD, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
 		_______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx,          _______,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-		_______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, KC_RSFT, _______, MS_UP,            xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+		_______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, KC_RSFT, _______, MS_UP,            xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
 		_______, _______, _______,                   MS_BTN1,                   xxxxxxx, _______, xxxxxxx, _______,          MS_LEFT, MS_DOWN, MS_RGHT, xxxxxxx, xxxxxxx, xxxxxxx
     ),
 
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,  MS_WHLU, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
 		KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,          MS_WHLD, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
 		_______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx,          _______,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-		TG_MSE,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, KC_RSFT, _______, MS_UP,            xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+		TG_MSE,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, KC_RSFT, _______, MS_UP,            xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
 		_______, _______, _______,                   MS_BTN1,                   xxxxxxx, _______, xxxxxxx, _______,          MS_LEFT, MS_DOWN, MS_RGHT, xxxxxxx, xxxxxxx, xxxxxxx
     ),
     // clang-format on

@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  xxxxxxx, _______,
      _______, QK_BOOT, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, WM_UP,   xxxxxxx, KC_DEL,
      _______, KC_CAPS, DF_M_P,  DF_L_P,  DF_W_P,  DF_G_P,  KC_GLB,                   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, WM_LEFT, WM_RGHT, _______,
-              _______,          DF_MAC,  DF_LNX,  DF_WIN,  DF_GMG,  xxxxxxx,         xxxxxxx, KC_MUTE, xxxxxxx, xxxxxxx, xxxxxxx, _______, KC_MPLY, WM_DOWN,
+              _______,          DF_MAC,  DF_LNX,  DF_WIN,  DF_GMG,  xxxxxxx,         xxxxxxx, KC_MUTE, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, WM_DOWN,
               xxxxxxx,          _______,          KC_MPLY,          _______,                  KC_MPLY,          _______,                            xxxxxxx
     ),
 
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MS_WHLU, _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6,         MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
      MS_WHLD, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      xxxxxxx, _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,                  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL,         MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, _______, KC_RSFT, xxxxxxx,
+              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, _______, KC_RSFT, xxxxxxx,
               xxxxxxx,          _______,          MS_BTN1,          _______,                  MS_BTN1,          _______,                            xxxxxxx
     ),
 
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MS_WHLU, _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6,         MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
      MS_WHLD, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
      xxxxxxx, _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,                  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
-              TG_MSE,           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL,         MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, _______, KC_RSFT, xxxxxxx,
+              TG_MSE,           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, _______, KC_RSFT, xxxxxxx,
               xxxxxxx,          _______,          MS_BTN1,          _______,                  MS_BTN1,          _______,                            xxxxxxx
     ),
 
