@@ -11,7 +11,7 @@ BRANCH_KEYCHRON="wireless_playground_apple"
 
 # Reset the logs
 if [[ -d "$QMK_USERSPACE_LOG" ]]; then
-    rm "$QMK_USERSPACE_LOG/*"
+    rm -rf "$QMK_USERSPACE_LOG"
 else
     mkdir -p "$QMK_USERSPACE_LOG"
 fi

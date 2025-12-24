@@ -747,165 +747,170 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     #ifdef KEYBOARD_SHARED_EP
     case TD(TD_ESC_GLOBE): // list all tap dance keycodes with tap-hold configurations
+      #ifdef KEYCHRON_ENABLE
+      action = &tap_dance_action[QK_TAP_DANCE_GET_INDEX(keycode)];
+      if (!record->event.pressed && action->state.count && !action->state.finished)
+      #else
       action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
       state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
       if (!record->event.pressed && state->count && !state->finished) {
+      #endif
         tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-        tap_code16(tap_hold->tap);
-      }
-      break;
+      tap_code16(tap_hold->tap);
+  }
+  break;
     #endif
   #endif
-      /* Ensure that KC_GLOBE is emitted only when the base layer is _QWERTY_MAC */
+  /* Ensure that KC_GLOBE is emitted only when the base layer is _QWERTY_MAC */
   #ifdef KEYBOARD_SHARED_EP
-    case KC_GLOBE:
+  case KC_GLOBE:
     #ifndef DISABLE_LAYER_TRACKING
-      if (current_default_layer != _QWERTY_MAC) {
-        // --> Inject a NOP keycode since we are not supposed to have globe on anything but mac keyboard
-        // i.e. we stop processing this key
-        return false;
-      }
+    if (current_default_layer != _QWERTY_MAC) {
+      // --> Inject a NOP keycode since we are not supposed to have globe on anything but mac keyboard
+      // i.e. we stop processing this key
+      return false;
+    }
     #endif
-      break;
+    break;
   #endif
-    /* Set the default persistent layer */
-    case DF_M_P:
-      if (!record->event.pressed) {
+  /* Set the default persistent layer */
+  case DF_M_P:
+    if (!record->event.pressed) {
   #ifndef DISABLE_LAYER_TRACKING
     #ifndef DISABLE_POST_INIT
-        if (user_config.default_layer != _QWERTY_MAC) { // only if there is actually a change
-          user_config.default_layer = _QWERTY_MAC;
-          eeconfig_update_user(user_config.raw);
-        }
-    #endif
-        current_default_layer = _QWERTY_MAC;
-  #endif
-        set_single_persistent_default_layer(_QWERTY_MAC);
-        return false;
+      if (user_config.default_layer != _QWERTY_MAC) { // only if there is actually a change
+        user_config.default_layer = _QWERTY_MAC;
+        eeconfig_update_user(user_config.raw);
       }
-      break;
-    case DF_L_P:
-      if (!record->event.pressed) {
+    #endif
+      current_default_layer = _QWERTY_MAC;
+  #endif
+      set_single_persistent_default_layer(_QWERTY_MAC);
+      return false;
+    }
+    break;
+  case DF_L_P:
+    if (!record->event.pressed) {
   #ifndef DISABLE_LAYER_TRACKING
     #ifndef DISABLE_POST_INIT
-        if (user_config.default_layer != _QWERTY_LINUX) { // only if there is actually a change
-          user_config.default_layer = _QWERTY_LINUX;
-          eeconfig_update_user(user_config.raw);
-        }
-    #endif
-        current_default_layer = _QWERTY_LINUX;
-  #endif
-        set_single_persistent_default_layer(_QWERTY_LINUX);
-        return false;
+      if (user_config.default_layer != _QWERTY_LINUX) { // only if there is actually a change
+        user_config.default_layer = _QWERTY_LINUX;
+        eeconfig_update_user(user_config.raw);
       }
-      break;
-    case DF_W_P:
-      if (!record->event.pressed) {
+    #endif
+      current_default_layer = _QWERTY_LINUX;
+  #endif
+      set_single_persistent_default_layer(_QWERTY_LINUX);
+      return false;
+    }
+    break;
+  case DF_W_P:
+    if (!record->event.pressed) {
   #ifndef DISABLE_LAYER_TRACKING
     #ifndef DISABLE_POST_INIT
-        if (user_config.default_layer != _QWERTY_WIN) { // only if there is actually a change
-          user_config.default_layer = _QWERTY_WIN;
-          eeconfig_update_user(user_config.raw);
-        }
-    #endif
-        current_default_layer = _QWERTY_WIN;
-  #endif
-        set_single_persistent_default_layer(_QWERTY_WIN);
-        return false;
+      if (user_config.default_layer != _QWERTY_WIN) { // only if there is actually a change
+        user_config.default_layer = _QWERTY_WIN;
+        eeconfig_update_user(user_config.raw);
       }
-      break;
-    case DF_G_P:
-      if (!record->event.pressed) {
+    #endif
+      current_default_layer = _QWERTY_WIN;
+  #endif
+      set_single_persistent_default_layer(_QWERTY_WIN);
+      return false;
+    }
+    break;
+  case DF_G_P:
+    if (!record->event.pressed) {
   #ifndef DISABLE_LAYER_TRACKING
     #ifndef DISABLE_POST_INIT
-        if (user_config.default_layer != _GAMING) { // only if there is actually a change
-          user_config.default_layer = _GAMING;
-          eeconfig_update_user(user_config.raw);
-        }
-    #endif
-        current_default_layer = _GAMING;
-  #endif
-        set_single_persistent_default_layer(_GAMING);
-        return false;
+      if (user_config.default_layer != _GAMING) { // only if there is actually a change
+        user_config.default_layer = _GAMING;
+        eeconfig_update_user(user_config.raw);
       }
-      break;
+    #endif
+      current_default_layer = _GAMING;
+  #endif
+      set_single_persistent_default_layer(_GAMING);
+      return false;
+    }
+    break;
   #ifdef MODIFIERS_ENABLE
-    /* Monitor shift state */
-    case SFT_MSE:
-    case KC_LSFT:
-      if (record->event.pressed) {
-        lshift = true;
-      } else {
-        lshift = false;
-      }
+  /* Monitor shift state */
+  case SFT_MSE:
+  case KC_LSFT:
+    if (record->event.pressed) {
+      lshift = true;
+    } else {
+      lshift = false;
+    }
 
-      break;
-    case QUT_SFT:
-    case R_SHIFT:
-    case KC_RSFT:
-      if (record->event.pressed) {
-        rshift = true;
-      } else {
-        rshift = false;
-      }
-      break;
-    case TAB_CTL:
-    case CPS_CTL:
-    case KC_LCTL:
-      if (record->event.pressed) {
-        lctrl = true;
-      } else {
-        lctrl = false;
-      }
-      break;
-    case KC_RCTL:
-      if (record->event.pressed) {
-        rctrl = true;
-      } else {
-        rctrl = false;
-      }
-      break;
-    case KC_LALT:
-      if (record->event.pressed) {
-        lalt = true;
-      } else {
-        lalt = false;
-      }
-      break;
-    case KC_RALT:
-      if (record->event.pressed) {
-        ralt = true;
-      } else {
-        ralt = false;
-      }
-      break;
-    case KC_LGUI:
-      if (record->event.pressed) {
-        lgui = true;
-      } else {
-        lgui = false;
-      }
-      break;
-    case KC_RGUI:
-      if (record->event.pressed) {
-        rgui = true;
-      } else {
-        rgui = false;
-      }
-      break;
-    case CU_BSPC:
-      // SHIFT_NO(KC_BSPC, KC_DEL)
-      CTRL_NO(KC_BSPC, KC_DEL)
+    break;
+  case QUT_SFT:
+  case R_SHIFT:
+  case KC_RSFT:
+    if (record->event.pressed) {
+      rshift = true;
+    } else {
+      rshift = false;
+    }
+    break;
+  case TAB_CTL:
+  case CPS_CTL:
+  case KC_LCTL:
+    if (record->event.pressed) {
+      lctrl = true;
+    } else {
+      lctrl = false;
+    }
+    break;
+  case KC_RCTL:
+    if (record->event.pressed) {
+      rctrl = true;
+    } else {
+      rctrl = false;
+    }
+    break;
+  case KC_LALT:
+    if (record->event.pressed) {
+      lalt = true;
+    } else {
+      lalt = false;
+    }
+    break;
+  case KC_RALT:
+    if (record->event.pressed) {
+      ralt = true;
+    } else {
+      ralt = false;
+    }
+    break;
+  case KC_LGUI:
+    if (record->event.pressed) {
+      lgui = true;
+    } else {
+      lgui = false;
+    }
+    break;
+  case KC_RGUI:
+    if (record->event.pressed) {
+      rgui = true;
+    } else {
+      rgui = false;
+    }
+    break;
+  case CU_BSPC:
+    // SHIFT_NO(KC_BSPC, KC_DEL)
+    CTRL_NO(KC_BSPC, KC_DEL)
   #endif
   #ifdef MACROS_ENABLED
-        /* Standard macros */
+      /* Standard macros */
   #endif
-    default:
-      break;
-  }
+  default:
+    break;
+}
 
-  // Board specific handling
-  return process_record_keymap(keycode, record);
+// Board specific handling
+return process_record_keymap(keycode, record);
 }
 
 #endif

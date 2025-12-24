@@ -11,6 +11,10 @@ EXTRAKEY_ENABLE = yes
 
 CHRISGVE_CAPS_WORD_ENABLE = yes
 
+ifeq ($(strip $(KEYCHON_ENABLE)), yes)
+	OPT_DEFS += -DKEYCHRON_ENABLE
+endif
+
 ifeq ($(strip $(COMBO_ENABLE)), no)
 	COMBO_ENABLE = no
 else
