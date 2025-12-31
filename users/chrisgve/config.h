@@ -8,11 +8,8 @@
 #define TAPPING_TERM 200
 
 // DEBOUNCE
-
-#ifdef REMOVE_DEBOUNCE
-  #ifdef DEBOUNCE
-    #undef DEBOUNCE
-  #endif
+#if defined(REMOVE_DEBOUNCE) && defined(DEBOUNCE)
+  #undef DEBOUNCE
 #endif
 
 #define xxxxxxx XXXXXXX

@@ -97,10 +97,8 @@ enum custom_keycodes {
 #define HSV_LNX HSV_GOLD
 
 // Gaming mode
-#if defined(RGBLIGHT_ENABLE)
-  #if defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL)
-    #define LGT_GMG_ON (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
-  #endif
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL)
+  #define LGT_GMG_ON (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 #elif defined(RGB_MATRIX_ENABLE)
   #define LGT_GMG_ON RGB_MATRIX_RAINBOW_BEACON
 #endif
@@ -610,37 +608,33 @@ enum custom_keycodes {
 #endif
 
 // Define combos if WORD_CAPS is enabled
-#ifdef WORD_CAPS_ENABLE
-  #ifndef AGAR_ENABLE
-    // Setting up Caps Word
-    // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-    #define CAPS_WORD_INVERT_ON_SHIFT
-    #ifdef CAPS_WORD_IDLE_TIMEOUT
-      #undef CAPS_WORD_IDLE_TIMEOUT
-      #define CAPS_WORD_IDLE_TIMEOUT 2000 // 2 seconds.
-    #endif
+#if defined(WORD_CAPS_ENABLE) && !defined(AGAR_ENABLE)
+  // Setting up Caps Word
+  // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+  #define CAPS_WORD_INVERT_ON_SHIFT
+  #ifdef CAPS_WORD_IDLE_TIMEOUT
+    #undef CAPS_WORD_IDLE_TIMEOUT
+    #define CAPS_WORD_IDLE_TIMEOUT 2000 // 2 seconds.
+  #endif
+#endif
 
-    #ifdef COMBO_ENABLE
+#if defined(WORD_CAPS_ENABLE) && !defined(AGAR_ENABLE) && defined(COMBO_ENABLE)
 const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
 const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
 combo_t                key_combos[]    = {
     COMBO(word_caps_gui, KC_CAPS_WORD_TOGGLE),
     COMBO(word_caps_alt, KC_CAPS_WORD_TOGGLE),
 };
-    #endif
-  #endif
 #endif
 
-// Mouse
-#ifdef TAP_DANCE_ENABLE
-
-  #ifdef MOUSEKEY_ENABLE
-    // mouse parameters setup
-    #define MK_KINETIC_SPEED
-  // #        define MOUSEKEY_WHEEL_TIME_TO_MAX 80
-  #endif
+// Mouse key parameters (requires both TAP_DANCE and MOUSEKEY)
+#if defined(TAP_DANCE_ENABLE) && defined(MOUSEKEY_ENABLE)
+  #define MK_KINETIC_SPEED
+  // #define MOUSEKEY_WHEEL_TIME_TO_MAX 80
+#endif
 
 // Tap Dance declarations
+#ifdef TAP_DANCE_ENABLE
 enum tap_dance_codes {
   TD_LSHIFT_MOUSE,
   TD_CTRL_CAPS,
@@ -649,30 +643,32 @@ enum tap_dance_codes {
   TD_ESC_GLOBE,
   #endif
 };
+#endif
 
-  // Define the keycode for the tap dance
-  #ifdef MOUSEKEY_ENABLE
-    #define SFT_MSE TD(TD_LSHIFT_MOUSE)
-    #define TG_MSE TG(_EX_MOUSE)
-  #else
-    #define SFT_MSE KC_LSFT
-    #define TG_MSE KC_LSFT
-  #endif
-  #ifdef KEYBOARD_SHARED_EP
-    #define ESC_GLB TD(TD_ESC_GLOBE)
-  #else
-    #define ESC_GLB KC_ESC
-  #endif
+// Tap dance keycode definitions
+#if defined(TAP_DANCE_ENABLE) && defined(MOUSEKEY_ENABLE)
+  #define SFT_MSE TD(TD_LSHIFT_MOUSE)
+  #define TG_MSE TG(_EX_MOUSE)
+#elif defined(TAP_DANCE_ENABLE)
+  #define SFT_MSE KC_LSFT
+  #define TG_MSE KC_LSFT
+#else
+  #define SFT_MSE KC_LSFT
+  #define TG_MSE _______
+#endif
+
+#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_SHARED_EP)
+  #define ESC_GLB TD(TD_ESC_GLOBE)
+#elif defined(TAP_DANCE_ENABLE)
+  #define ESC_GLB KC_ESC
+#endif
+
+#ifdef TAP_DANCE_ENABLE
   #define CPS_CTL TD(TD_CTRL_CAPS)
   #define TG_NUM TG(_NUM)
   #define TD_ADJ TD(TD_ADJ_NUM)
-
 #else
-
-  #define SFT_MSE KC_LSFT
-  #define TG_MSE _______
   #define CPS_CTL CTL_T(KC_CAPS)
-
 #endif
 
 // #define TAPPING_TOGGLE 2

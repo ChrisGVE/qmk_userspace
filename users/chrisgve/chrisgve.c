@@ -2,20 +2,16 @@
 #include "action_layer.h"
 #include "host.h"
 
-#ifdef TAP_DANCE_ENABLE
-  #if __has_include("quantum/keymap_introspection.h")
-    #include "quantum/keymap_introspection.h"
-  #endif
+#if defined(TAP_DANCE_ENABLE) && __has_include("quantum/keymap_introspection.h")
+  #include "quantum/keymap_introspection.h"
 #endif
 
-#if defined(CHRISGVE_CAPS_WORD_ENABLE)
+#if defined(CHRISGVE_CAPS_WORD_ENABLE) && __has_include("quantum/keymap_introspection.h")
   // Ensure introspection sees combo symbols/prototypes early enough when it includes userspace
-  #if __has_include("quantum/keymap_introspection.h")
-    #include "quantum/keymap_introspection.h"
-  #endif
+  #include "quantum/keymap_introspection.h"
+#endif
 
-  #if defined(CAPS_WORD_ENABLE) && defined(COMBO_ENABLE)
-
+#if defined(CHRISGVE_CAPS_WORD_ENABLE) && defined(CAPS_WORD_ENABLE) && defined(COMBO_ENABLE)
 const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
 const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
 
@@ -23,8 +19,6 @@ combo_t key_combos[] = {
     COMBO(word_caps_gui, QK_CAPS_WORD_TOGGLE),
     COMBO(word_caps_alt, QK_CAPS_WORD_TOGGLE),
 };
-
-  #endif
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
@@ -41,10 +35,8 @@ combo_t key_combos[] = {
  * Helper defines
  *****************************************/
 
-  #ifndef RGBLIGHT_ENABLE
-    #ifndef RGB_MATRIX_ENABLE
-      #define NO_RGB
-    #endif
+  #if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
+    #define NO_RGB
   #endif
 
 /*****************************************
@@ -201,17 +193,13 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 }
   #endif
 
-  #ifdef WORD_CAPS_ENABLE
-    #ifndef AGAR_ENABLE
-      #ifdef COMBO_ENABLE
+  #if defined(WORD_CAPS_ENABLE) && !defined(AGAR_ENABLE) && defined(COMBO_ENABLE)
 const uint16_t PROGMEM word_caps_gui[] = {KC_LGUI, KC_RGUI, COMBO_END};
 const uint16_t PROGMEM word_caps_alt[] = {KC_LALT, KC_RALT, COMBO_END};
 combo_t                key_combos[]    = {
     COMBO(word_caps_gui, KC_CAPS_WORD_TOGGLE),
     COMBO(word_caps_alt, KC_CAPS_WORD_TOGGLE),
 };
-      #endif
-    #endif
   #endif
   // EEPROM user configuration
   #ifndef DISABLE_POST_INIT
@@ -261,17 +249,16 @@ bool rgui   = false;
   #endif
 
   // Host OS Detection
-  #ifdef OS_DETECTION_ENABLE
-    #ifndef DISABLE_LAYER_TRACKING
+  #if defined(OS_DETECTION_ENABLE) && !defined(DISABLE_LAYER_TRACKING)
 bool process_detected_host_os_kb(os_variant_t detected_os) {
   if (!process_detected_host_os_user(detected_os)) {
     return false;
   }
-      #ifndef DISABLE_POST_INIT
+    #ifndef DISABLE_POST_INIT
   if (user_config.default_layer) {
     return true;
   }
-      #endif
+    #endif
   switch (detected_os) {
     case OS_MACOS:
     case OS_IOS:
@@ -291,7 +278,6 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
   }
   return true;
 }
-    #endif
   #endif
 
   // Tap dance configuration
@@ -488,15 +474,13 @@ void rgb_off(void) {
 }
 
 void set_gmg_hsv(void) {
-    #ifdef LGT_GMG_ON
-      #if defined(RGB_MATRIX_ENABLE)
+    #if defined(LGT_GMG_ON) && defined(RGB_MATRIX_ENABLE)
   rgb_matrix_enable_noeeprom();
   rgb_matrix_mode_noeeprom(LGT_GMG_ON);
-      #elif defined(RGBLIGHT_ENABLE)
+    #elif defined(LGT_GMG_ON) && defined(RGBLIGHT_ENABLE)
   rgblight_enable_noeeprom();
   rgblight_mode_noeeprom(LGT_GMG_ON);
-        /* rgblight_sethsv_noeeprom(0, 0, 255); */
-      #endif
+  /* rgblight_sethsv_noeeprom(0, 0, 255); */
     #endif
 }
 
@@ -556,13 +540,23 @@ bool update_indicator(void) {
   #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {
   if (!rgb_matrix_indicators_keymap()) {
+    #ifdef LK_WIRELESS_ENABLE
+    return true; // Allow Keychron wireless indicators to be processed
+    #else
     return false;
+    #endif
   }
   bool caps_lock_host = host_keyboard_led_state().caps_lock;
+  #ifdef LK_WIRELESS_ENABLE
+  caps_lock = caps_lock_host;
+  update_indicator();
+  return true; // Allow Keychron wireless indicators to be processed
+  #else
   if (caps_lock == caps_lock_host) return false; // no change, thus nothing to do
   caps_lock = caps_lock_host;
   if (current_default_layer == _GAMING) return false; // if in gaming mode do nothing
   return update_indicator();
+  #endif
 }
   #endif
 
@@ -695,35 +689,31 @@ void keyboard_post_init_user(void) {
   user_config.raw       = eeconfig_read_user();
   current_default_layer = user_config.default_layer;
 
-    // Init RGB
-    #ifndef NO_RGB
-      #if defined(RGBLIGHT_ENABLE)
+  // Init RGB
+  #if !defined(NO_RGB) && defined(RGBLIGHT_ENABLE)
   rgblight_enable_noeeprom();
-      #else
+  #elif !defined(NO_RGB)
   rgb_matrix_enable();
-      #endif
+  #endif
+
+  #ifndef NO_RGB
   if (current_default_layer == _GAMING) {
     set_gmg_hsv();
   } else {
     update_hsv();
   }
-    #endif
+  #endif
 
-    // Init debug
-    #ifdef DEBUG
+  // Init debug
+  #ifdef DEBUG
   /* debug_enable   = true; */
   /* debug_matrix   = true; */
   debug_keyboard = true;
-      #ifdef MOUSEKEY_ENABLE
-        /* debug_mouse = true; */
-      #endif
-  dprint("keyboard_post_init_user() -- debug init");
-
-      #ifdef RGBLIGHT_ENABLE
-
-      #endif
-
+    #ifdef MOUSEKEY_ENABLE
+    /* debug_mouse = true; */
     #endif
+  dprint("keyboard_post_init_user() -- debug init");
+  #endif
 
   // Call specific board initialization
   keyboard_post_init_keymap();
@@ -732,20 +722,15 @@ void keyboard_post_init_user(void) {
 
 // Key handling
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef TAP_DANCE_ENABLE
-    #ifdef KEYBOARD_SHARED_EP
-      #ifdef AGAR_ENABLE
+  #if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_SHARED_EP) && defined(AGAR_ENABLE)
   qk_tap_dance_action_t *action;
-      #else
+  #elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_SHARED_EP)
   tap_dance_action_t *action;
   tap_dance_state_t  *state;
-      #endif
-    #endif
   #endif
 
   switch (keycode) {
-  #ifdef TAP_DANCE_ENABLE
-    #ifdef KEYBOARD_SHARED_EP
+  #if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_SHARED_EP)
     case TD(TD_ESC_GLOBE): // list all tap dance keycodes with tap-hold configurations
       #ifdef KEYCHRON_ENABLE
       action = &tap_dance_action[QK_TAP_DANCE_GET_INDEX(keycode)];
@@ -759,30 +744,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code16(tap_hold->tap);
   }
   break;
-    #endif
   #endif
   /* Ensure that KC_GLOBE is emitted only when the base layer is _QWERTY_MAC */
-  #ifdef KEYBOARD_SHARED_EP
+  #if defined(KEYBOARD_SHARED_EP) && !defined(DISABLE_LAYER_TRACKING)
   case KC_GLOBE:
-    #ifndef DISABLE_LAYER_TRACKING
     if (current_default_layer != _QWERTY_MAC) {
       // --> Inject a NOP keycode since we are not supposed to have globe on anything but mac keyboard
       // i.e. we stop processing this key
       return false;
     }
-    #endif
+    break;
+  #elif defined(KEYBOARD_SHARED_EP)
+  case KC_GLOBE:
     break;
   #endif
   /* Set the default persistent layer */
   case DF_M_P:
     if (!record->event.pressed) {
-  #ifndef DISABLE_LAYER_TRACKING
-    #ifndef DISABLE_POST_INIT
+  #if !defined(DISABLE_LAYER_TRACKING) && !defined(DISABLE_POST_INIT)
       if (user_config.default_layer != _QWERTY_MAC) { // only if there is actually a change
         user_config.default_layer = _QWERTY_MAC;
         eeconfig_update_user(user_config.raw);
       }
-    #endif
+  #endif
+  #ifndef DISABLE_LAYER_TRACKING
       current_default_layer = _QWERTY_MAC;
   #endif
       set_single_persistent_default_layer(_QWERTY_MAC);
@@ -791,13 +776,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case DF_L_P:
     if (!record->event.pressed) {
-  #ifndef DISABLE_LAYER_TRACKING
-    #ifndef DISABLE_POST_INIT
+  #if !defined(DISABLE_LAYER_TRACKING) && !defined(DISABLE_POST_INIT)
       if (user_config.default_layer != _QWERTY_LINUX) { // only if there is actually a change
         user_config.default_layer = _QWERTY_LINUX;
         eeconfig_update_user(user_config.raw);
       }
-    #endif
+  #endif
+  #ifndef DISABLE_LAYER_TRACKING
       current_default_layer = _QWERTY_LINUX;
   #endif
       set_single_persistent_default_layer(_QWERTY_LINUX);
@@ -806,13 +791,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case DF_W_P:
     if (!record->event.pressed) {
-  #ifndef DISABLE_LAYER_TRACKING
-    #ifndef DISABLE_POST_INIT
+  #if !defined(DISABLE_LAYER_TRACKING) && !defined(DISABLE_POST_INIT)
       if (user_config.default_layer != _QWERTY_WIN) { // only if there is actually a change
         user_config.default_layer = _QWERTY_WIN;
         eeconfig_update_user(user_config.raw);
       }
-    #endif
+  #endif
+  #ifndef DISABLE_LAYER_TRACKING
       current_default_layer = _QWERTY_WIN;
   #endif
       set_single_persistent_default_layer(_QWERTY_WIN);
@@ -821,13 +806,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case DF_G_P:
     if (!record->event.pressed) {
-  #ifndef DISABLE_LAYER_TRACKING
-    #ifndef DISABLE_POST_INIT
+  #if !defined(DISABLE_LAYER_TRACKING) && !defined(DISABLE_POST_INIT)
       if (user_config.default_layer != _GAMING) { // only if there is actually a change
         user_config.default_layer = _GAMING;
         eeconfig_update_user(user_config.raw);
       }
-    #endif
+  #endif
+  #ifndef DISABLE_LAYER_TRACKING
       current_default_layer = _GAMING;
   #endif
       set_single_persistent_default_layer(_GAMING);
