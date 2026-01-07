@@ -1,2 +1,5 @@
 USER_NAME := chrisgve
 NKRO_ENABLE = yes
+# CAPS_WORD_ENABLE = no
+# COMBO_ENABLE = no
+REDUCE_RGB = yes
