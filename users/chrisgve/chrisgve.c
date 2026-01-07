@@ -480,7 +480,7 @@ void set_gmg_hsv(void) {
     #elif defined(LGT_GMG_ON) && defined(RGBLIGHT_ENABLE)
   rgblight_enable_noeeprom();
   rgblight_mode_noeeprom(LGT_GMG_ON);
-  /* rgblight_sethsv_noeeprom(0, 0, 255); */
+      /* rgblight_sethsv_noeeprom(0, 0, 255); */
     #endif
 }
 
@@ -547,16 +547,16 @@ bool rgb_matrix_indicators_user(void) {
     #endif
   }
   bool caps_lock_host = host_keyboard_led_state().caps_lock;
-  #ifdef LK_WIRELESS_ENABLE
+    #ifdef LK_WIRELESS_ENABLE
   caps_lock = caps_lock_host;
   update_indicator();
   return true; // Allow Keychron wireless indicators to be processed
-  #else
+    #else
   if (caps_lock == caps_lock_host) return false; // no change, thus nothing to do
   caps_lock = caps_lock_host;
   if (current_default_layer == _GAMING) return false; // if in gaming mode do nothing
   return update_indicator();
-  #endif
+    #endif
 }
   #endif
 
@@ -663,11 +663,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       def_layer   = false;
       mouse_layer = false;
       break;
-    case _MOUSE:
-      cur_layer   = _MSE_L;
-      def_layer   = false;
-      mouse_layer = true;
-      break;
+    /* case _MOUSE: */
+    /*   cur_layer   = _MSE_L; */
+    /*   def_layer   = false; */
+    /*   mouse_layer = true; */
+    /*   break; */
     default:
       cur_layer   = _DEF_L;
       def_layer   = true;
@@ -689,31 +689,31 @@ void keyboard_post_init_user(void) {
   user_config.raw       = eeconfig_read_user();
   current_default_layer = user_config.default_layer;
 
-  // Init RGB
-  #if !defined(NO_RGB) && defined(RGBLIGHT_ENABLE)
+    // Init RGB
+    #if !defined(NO_RGB) && defined(RGBLIGHT_ENABLE)
   rgblight_enable_noeeprom();
-  #elif !defined(NO_RGB)
+    #elif !defined(NO_RGB)
   rgb_matrix_enable();
-  #endif
+    #endif
 
-  #ifndef NO_RGB
+    #ifndef NO_RGB
   if (current_default_layer == _GAMING) {
     set_gmg_hsv();
   } else {
     update_hsv();
   }
-  #endif
+    #endif
 
-  // Init debug
-  #ifdef DEBUG
+    // Init debug
+    #ifdef DEBUG
   /* debug_enable   = true; */
   /* debug_matrix   = true; */
   debug_keyboard = true;
-    #ifdef MOUSEKEY_ENABLE
-    /* debug_mouse = true; */
-    #endif
+      #ifdef MOUSEKEY_ENABLE
+      /* debug_mouse = true; */
+      #endif
   dprint("keyboard_post_init_user() -- debug init");
-  #endif
+    #endif
 
   // Call specific board initialization
   keyboard_post_init_keymap();
@@ -732,14 +732,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   #if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_SHARED_EP)
     case TD(TD_ESC_GLOBE): // list all tap dance keycodes with tap-hold configurations
-      #ifdef KEYCHRON_ENABLE
+    #ifdef KEYCHRON_ENABLE
       action = &tap_dance_action[QK_TAP_DANCE_GET_INDEX(keycode)];
       if (!record->event.pressed && action->state.count && !action->state.finished)
-      #else
+    #else
       action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
       state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
       if (!record->event.pressed && state->count && !state->finished) {
-      #endif
+    #endif
         tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
       tap_code16(tap_hold->tap);
   }
@@ -755,8 +755,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   #elif defined(KEYBOARD_SHARED_EP)
-  case KC_GLOBE:
-    break;
+    case KC_GLOBE:
+      break;
   #endif
   /* Set the default persistent layer */
   case DF_M_P:

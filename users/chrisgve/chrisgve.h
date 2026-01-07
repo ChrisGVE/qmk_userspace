@@ -38,7 +38,6 @@ enum default_layers {
   _NAV_2,        // Navigation layer 2
   _RAISE,        // Raise layer on ortho
   _LOWER,        // Lower layer on ortho
-  _MOUSE,        // Mouse key layer
   _GAMING,       // Gaming layout
   _ADJUST,       // Adjust layer
   _NUM,          // Numerical layer (for 40% layouts)
@@ -630,7 +629,7 @@ combo_t                key_combos[]    = {
 // Mouse key parameters (requires both TAP_DANCE and MOUSEKEY)
 #if defined(TAP_DANCE_ENABLE) && defined(MOUSEKEY_ENABLE)
   #define MK_KINETIC_SPEED
-  // #define MOUSEKEY_WHEEL_TIME_TO_MAX 80
+// #define MOUSEKEY_WHEEL_TIME_TO_MAX 80
 #endif
 
 // Tap Dance declarations

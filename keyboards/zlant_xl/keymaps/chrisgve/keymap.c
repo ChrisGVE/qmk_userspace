@@ -117,14 +117,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         xxxxxxx, TG_NUM,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
     ),
 
-    [_MOUSE] = LAYOUT(
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_BTN1, MS_BTN1, xxxxxxx, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT
-    ),
-
     [_EX_MOUSE] = LAYOUT(
         TG_MSE,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,

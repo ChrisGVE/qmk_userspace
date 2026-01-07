@@ -100,14 +100,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               xxxxxxx,          _______,          KC_MPLY,          _______,                  KC_MPLY,          _______,                            xxxxxxx
     ),
 
-    [_MOUSE] = LAYOUT_alice_split_bs(
-     MS_WHLU, _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6,         MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
-     MS_WHLD, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-     xxxxxxx, _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2,                  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,
-              _______,          xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,         xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, _______, KC_RSFT, xxxxxxx,
-              xxxxxxx,          _______,          MS_BTN1,          _______,                  MS_BTN1,          _______,                            xxxxxxx
-    ),
-
     [_EX_MOUSE] = LAYOUT_alice_split_bs(
      MS_WHLU, _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6,         MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_MEH,
      MS_WHLD, KC_HYPR, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,

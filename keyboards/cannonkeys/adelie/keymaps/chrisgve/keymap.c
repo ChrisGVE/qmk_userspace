@@ -95,13 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, KC_MPLY, KC_MPLY, _______, _______, _______,                            KC_MPRV, KC_VOLD, KC_MNXT
   ),
 
-  [_MOUSE] = LAYOUT_all(
-    _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, MS_WHLU,
-    _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,          MS_WHLD,
-    _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, xxxxxxx, KC_RSFT, MS_UP,            ADJUST,
-    _______, _______, _______, MS_BTN1, MS_BTN1, _______, _______, _______,                            MS_LEFT, MS_DOWN, MS_RGHT
-  ),
-
   [_EX_MOUSE] = LAYOUT_all(
     _______, MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, MS_WHLU,
     _______, xxxxxxx, MS_ACL2, MS_ACL1, MS_ACL0, MS_BTN2, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, xxxxxxx, xxxxxxx, _______,          MS_WHLD,
