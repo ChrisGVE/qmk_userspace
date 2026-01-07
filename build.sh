@@ -4,22 +4,26 @@ QMK_USERSPACE="$QMK_ROOT/qmk_userspace"
 QMK_USERSPACE_LOG="$QMK_USERSPACE/log"
 QMK_OG="$QMK_ROOT/qmk_firmware"
 QMK_KEYCHRON="$QMK_ROOT/qmk_keychron"
+QMK_CONSOLIDATED="$QMK_ROOT/qmk_firmware_consolidated"
 QMK_NEO="$QMK_ROOT/qmk_neo"
 QMK_YDKB="$QMK_ROOT/qmk_ydkb"
 BRANCH_OG="dev"
 BRANCH_KEYCHRON="wireless_playground_apple"
+BRANCH_CONSOLIDATED="dev"
 
 # Reset the logs
 if [[ -d "$QMK_USERSPACE_LOG" ]]; then
     rm -rf "$QMK_USERSPACE_LOG"
+    mkdir -p "$QMK_USERSPACE_LOG"
 else
     mkdir -p "$QMK_USERSPACE_LOG"
 fi
 
-cd "$QMK_KEYCHRON"
-git checkout "$BRANCH_KEYCHRON"
+# Q60 Max uses the consolidated firmware (QMK 0.31.2 port)
+cd "$QMK_CONSOLIDATED"
+git checkout "$BRANCH_CONSOLIDATED"
 cd "$QMK_USERSPACE"
-qmk config set user.qmk_home=/Users/chris/dev/Keyboard/qmk/qmk_keychron
+qmk config set user.qmk_home=/Users/chris/dev/Keyboard/qmk/qmk_firmware_consolidated
 qmk compile --parallel 0 -kb keychron/q60_max/ansi -km chrisgve >>"$QMK_USERSPACE_LOG/q60_max.log" 2>&1
 
 cd "$QMK_OG"
@@ -43,6 +47,7 @@ qmk compile --parallel 0 -kb kbdfans/odin/soldered -km chrisgve >>"$QMK_USERSPAC
 qmk compile --parallel 0 -kb keebsforall/freebirdnp/pro -km chrisgve >>"$QMK_USERSPACE_LOG/freebirdnp.log" 2>&1
 qmk compile --parallel 0 -kb keebsforall/freebirdtkl -km chrisgve >>"$QMK_USERSPACE_LOG/freebirdtkl.log" 2>&1
 qmk compile --parallel 0 -kb keycult/keycult_zero -km chrisgve >>"$QMK_USERSPACE_LOG/keycult_zero.log" 2>&1
+qmk compile --parallel 0 -kb keycult/keycult60 -km chrisgve >>"$QMK_USERSPACE_LOG/keycult60.log" 2>&1
 qmk compile --parallel 0 -kb kopibeng/mnk65_stm32 -km chrisgve >>"$QMK_USERSPACE_LOG/mnk65.log" 2>&1
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/apm32f103 -km chrisgve >>"$QMK_USERSPACE_LOG/adelais_apm32f103_chrisgve.log" 2>&1
 qmk compile --parallel 0 -kb mechlovin/adelais/standard_led/arm/rev4/apm32f103 -km chrisgve_hhkb >>"$QMK_USERSPACE_LOG/adelais_apm32f103_chrisgve_hhkb.log" 2>&1
