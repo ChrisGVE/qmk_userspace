@@ -1,2 +1,3 @@
 USER_NAME := chrisgve
-KEYCHRON_ENABLE yes
+
+KEYCHRON_ENABLE = yes

@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_MAC] = LAYOUT_alice_split_bs(
      KC_PGUP, ESC_GLB, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, GRV_MEH,
      KC_PGDN, TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-     KC_END,  KC_LCTL, A_MOUSE, KC_S,    M_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+     KC_END,  KC_LCTL, KC_A,    KC_S,    M_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,   R_SHIFT, KC_SLSH,
               KC_LALT,          KC_LGUI,          SPC_RSE,          ADJUST,                   SPC_RSE,          KC_RGUI,                            KC_RALT
     ),
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_LINUX] = LAYOUT_alice_split_bs(
      KC_PGUP, KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,            KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, GRV_MEH,
      KC_PGDN, TAB_HYP, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-     KC_END,  KC_LCTL, A_MOUSE, KC_S,    L_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+     KC_END,  KC_LCTL, KC_A,    KC_S,    L_NAV,   F_NAV_2, KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
               SFT_MSE,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  ADJUST,  R_SHIFT, KC_SLSH,
               KC_LGUI,          KC_LALT,          SPC_RSE,          ADJUST,                   SPC_RSE,          KC_RALT,                            KC_RGUI
     ),
